@@ -19,20 +19,6 @@
                             purple: '#7000ff',
                             magenta: '#ff007c',
                         }
-                    },
-                    animation: {
-                        'glow-pulse': 'glow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        'glow-pulse': {
-                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 5px #00f2ff)' },
-                            '50%': { opacity: 0.7, filter: 'drop-shadow(0 0 20px #7000ff)' },
-                        },
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
                     }
                 }
             }
@@ -40,75 +26,20 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
-        
-        body {
-            background-color: #0a0a0c;
-            color: #e0e0e0;
-            font-family: 'Noto Sans TC', 'JetBrains Mono', sans-serif;
-            overflow-x: hidden;
-        }
-
+        body { background-color: #0a0a0c; color: #e0e0e0; font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
         .cyber-grid {
-            background-image: 
-                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         }
-
         .glass-card {
-            background: rgba(22, 22, 30, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 255, 0.1);
+            background: rgba(22, 22, 30, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.1);
             transition: all 0.3s ease;
         }
-
-        .glass-card:hover {
-            border-color: rgba(0, 242, 255, 0.5);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .terminal-window {
-            background: #1a1b26;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #00f2ff, #7000ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00f2ff, #7000ff);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0c; }
-        ::-webkit-scrollbar-thumb { background: #16161e; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f2ff; }
+        .glass-card:hover { border-color: rgba(0, 242, 255, 0.5); transform: translateY(-5px); }
+        .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
     </style>
 </head>
 <body class="antialiased">
@@ -121,14 +52,12 @@
                 <div class="w-8 h-8 bg-gradient-to-tr from-cyber-cyan to-cyber-purple rounded-lg rotate-12 flex items-center justify-center text-white">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <span class="font-bold text-xl tracking-tighter uppercase">init-my-workflow</span>
+                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase">init-my-workflow</span>
             </div>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="text-cyber-cyan nav-link">核心安裝</a>
+            <div class="flex gap-4 md:gap-8 text-xs md:text-sm font-medium text-gray-400">
+                <a href="index.html" class="text-cyber-cyan nav-link font-bold">核心安裝</a>
                 <a href="software.html" class="hover:text-cyber-cyan nav-link transition-colors">軟體百科</a>
-                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="text-gray-400 hover:text-white flex items-center gap-2">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
+                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="hover:text-white hidden sm:block"><i class="fab fa-github"></i> GitHub</a>
             </div>
         </div>
     </nav>
@@ -136,68 +65,57 @@
     <!-- Hero Section -->
     <section class="pt-40 pb-20 px-6">
         <div class="max-w-5xl mx-auto text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                打造最強 <span class="gradient-text">macOS</span><br>開發戰艦
-            </h1>
-            <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                這是一套專為開發者設計的自動化初始化工具包。換新機時不再手忙腳亂，透過智慧掃描與自癒同步，一鍵建立您的夢幻工作流。
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight italic">打造最強 <span class="gradient-text">macOS</span> 開發環境</h1>
+            <p class="text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+                換新機時不再手忙腳亂。這是一套專為開發者打造的自動化工具包，透過智慧偵測與自癒同步，一鍵建立您的夢幻工作流。
             </p>
             
-            <!-- Hero Terminal -->
-            <div class="terminal-window max-w-3xl mx-auto text-left overflow-hidden mb-16 group">
-                <div class="bg-[#24283b] px-4 py-3 flex items-center gap-2 border-b border-white/5">
-                    <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                    <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                    <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                    <span class="ml-4 text-xs text-gray-400 font-mono">zsh — install.sh</span>
-                </div>
-                <div class="p-6 font-mono text-sm md:text-base space-y-2">
-                    <p class="text-[#bb9af7]">$ git clone https://github.com/s813082/init-my-workflow.git</p>
-                    <p class="text-[#7aa2f7]">$ cd init-my-workflow && ./install.sh</p>
-                    <p class="text-gray-500 mt-4">🔍 正在為您全面偵測系統環境...</p>
-                    <p class="text-green-400">✅ 這些強大夥伴已經就緒了：Google Chrome, iTerm2...</p>
-                    <p class="text-yellow-400">📦 還需要徵召的夥伴清單：VSCode, Stats, Keka...</p>
-                    <p class="animate-pulse text-cyber-cyan inline-block mt-2">_</p>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-4">
+            <div class="flex flex-wrap justify-center gap-4 mb-20">
                 <a href="#install" class="px-8 py-4 bg-cyber-cyan text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,242,255,0.5)] transition-all">
-                    立即部署工作流
+                    立即部署
                 </a>
                 <a href="software.html" class="px-8 py-4 border border-white/10 rounded-full hover:bg-white/5 transition-all">
-                    探索軟體百科
+                    探索軟體百科 <i class="fas fa-chevron-right ml-2 text-xs"></i>
                 </a>
+            </div>
+
+            <!-- Terminal Mockup -->
+            <div class="bg-[#1a1b26] rounded-xl border border-white/10 text-left overflow-hidden shadow-2xl max-w-3xl mx-auto font-mono text-sm md:text-base">
+                <div class="bg-[#24283b] px-4 py-2 border-b border-white/5 flex gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                </div>
+                <div class="p-6 space-y-2">
+                    <p class="text-purple-400">$ git clone https://github.com/s813082/init-my-workflow.git</p>
+                    <p class="text-blue-400">$ cd init-my-workflow && ./install.sh</p>
+                    <p class="text-gray-500 mt-4">🔍 正在為您全面偵測系統環境...</p>
+                    <p class="text-green-400">✅ 已就緒：Google Chrome, iTerm2, LINE...</p>
+                    <p class="text-yellow-400">📦 待徵召：VSCode, Stats, Keka...</p>
+                    <p class="animate-pulse text-cyber-cyan mt-2">_</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Installation -->
-    <section id="install" class="py-20 px-6 bg-gradient-to-b from-cyber-black to-cyber-gray/20">
+    <section id="install" class="py-20 px-6">
         <div class="max-w-4xl mx-auto text-center">
-            <div class="inline-block px-4 py-1 bg-cyber-cyan/10 text-cyber-cyan rounded-full text-xs font-bold mb-6 border border-cyber-cyan/20">
-                QUICK START
-            </div>
-            <h2 class="text-4xl font-bold mb-8 italic italic uppercase">一鍵開啟戰鬥模式</h2>
-            
-            <div class="glass-card p-2 rounded-2xl mb-8 flex items-center gap-4 group">
-                <div class="bg-cyber-gray px-6 py-4 rounded-xl font-mono text-sm md:text-base flex-1 text-left overflow-x-auto whitespace-nowrap text-cyber-cyan">
+            <h2 class="text-3xl font-bold mb-8 italic uppercase tracking-widest">一鍵啟動指令</h2>
+            <div class="glass-card p-2 rounded-2xl flex items-center gap-4 group">
+                <div class="bg-cyber-gray/50 px-6 py-4 rounded-xl font-mono text-xs md:text-sm flex-1 text-left overflow-x-auto whitespace-nowrap text-cyber-cyan">
                     git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow && sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && chmod +x install.sh && ./install.sh
                 </div>
                 <button onclick="copyCommand()" class="pr-6 text-gray-400 hover:text-cyber-cyan transition-colors">
                     <i class="far fa-copy text-xl"></i>
                 </button>
             </div>
-            
-            <div id="copy-toast" class="opacity-0 transition-opacity text-cyber-cyan text-sm font-bold">
-                指令已成功複製到剪貼簿！✨
-            </div>
+            <div id="copy-toast" class="opacity-0 mt-4 transition-opacity text-cyber-cyan text-sm font-bold">指令已複製！✨</div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
-        <p>© 2026 Barry Tsai. Created with ❤️ and Cyberpunk Vibes.</p>
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-xs">
+        <p>© 2026 Barry Tsai. 所有網頁檔案均存放在 /docs 目錄中。</p>
     </footer>
 
     <script>

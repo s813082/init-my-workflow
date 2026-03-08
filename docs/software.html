@@ -25,36 +25,26 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
-        body { background-color: #0a0a0c; color: #e0e0e0; font-family: 'Noto Sans TC', sans-serif; }
+        body { background-color: #0a0a0c; color: #e0e0e0; font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
         .cyber-grid {
             background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         }
         .software-card {
-            background: rgba(22, 22, 30, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(22, 22, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .software-card:hover {
-            border-color: rgba(0, 242, 255, 0.4);
-            transform: scale(1.02);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        }
+        .software-card:hover { border-color: rgba(0, 242, 255, 0.4); transform: scale(1.02); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
         .icon-box {
-            width: 64px; height: 64px; border-radius: 16px;
-            display: flex; items-center: center; justify-content: center;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            width: 64px; height: 64px; border-radius: 16px; display: flex; items-center: center; justify-content: center;
+            margin-bottom: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
             overflow: hidden; padding: 12px;
         }
         .icon-box img { width: 100%; height: 100%; object-fit: contain; }
-        .gradient-text {
-            background: linear-gradient(90deg, #00f2ff, #7000ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
     </style>
 </head>
 <body class="antialiased">
@@ -67,11 +57,12 @@
                 <div class="w-8 h-8 bg-gradient-to-tr from-cyber-cyan to-cyber-purple rounded-lg rotate-12 flex items-center justify-center text-white">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <span class="font-bold text-xl tracking-tighter uppercase">init-my-workflow</span>
+                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase">init-my-workflow</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium text-gray-400">
-                <a href="index.html" class="hover:text-cyber-cyan transition-colors">核心安裝</a>
-                <a href="software.html" class="text-cyber-cyan">軟體百科</a>
+            <div class="flex gap-4 md:gap-8 text-xs md:text-sm font-medium text-gray-400">
+                <a href="index.html" class="hover:text-cyber-cyan nav-link transition-colors">核心安裝</a>
+                <a href="software.html" class="text-cyber-cyan nav-link font-bold">軟體百科</a>
+                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="hover:text-white hidden sm:block"><i class="fab fa-github"></i> GitHub</a>
             </div>
         </div>
     </nav>
@@ -79,7 +70,7 @@
     <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-20">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 italic uppercase tracking-tight">軟體 <span class="gradient-text">百科全書</span></h1>
-            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                 深入了解本工作流所包含的每一款神器。我們整合了官方商標與詳盡介紹，讓您一眼看透最強的開發武裝！🚀
             </p>
         </div>
@@ -196,8 +187,8 @@
         </div>
     </main>
 
-    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
-        <p>© 2026 Barry Tsai. All brand logos belong to their respective owners.</p>
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-xs">
+        <p>© 2026 Barry Tsai. 所有品牌商標均歸原公司所有。</p>
     </footer>
 </body>
 </html>
