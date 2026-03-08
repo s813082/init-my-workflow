@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# 🚀 init-my-workflow | macOS 一鍵工作流安裝腳本
-# 打造屬於你的完美開發環境！
+# 🚀 init-my-workflow | macOS 終極工作流部署腳本
+# 準備好迎接全新的開發體驗了嗎？讓我們開始吧！
 
 DOTFILES_DIR="/Users/lisa20260130/Documents/init-my-workflow"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -25,9 +25,9 @@ APPS=(
     "LINE|line|社群|LINE"
 )
 
-# 0. 環境預檢 | 先檢查一下環境安不安全 (＃`Д´)
+# 0. 權限預檢 | 安全第一，我們先檢查環境！
 if [[ "$EUID" -eq 0 ]]; then
-    echo "❌ 警告: 請勿以 root 權限執行此腳本。Homebrew 將無法運作！"
+    echo "❌ 警告：請勿以 root 權限執行此腳本，這會讓 Homebrew 很困擾喔！"
     exit 1
 fi
 
@@ -35,8 +35,8 @@ fi
 CHECK_DIRS=("/usr/local/bin" "/usr/local/share" "/usr/local/share/man/man8")
 for dir in "${CHECK_DIRS[@]}"; do
     if [ -d "$dir" ] && [ ! -w "$dir" ]; then
-        echo "⚠️ 目錄 $dir 目前無法寫入，這會阻礙 Homebrew 安裝。"
-        echo "請先執行: sudo chown -R \$(whoami) $dir"
+        echo "⚠️ 目錄 $dir 正在對我們耍脾氣，目前無法寫入！"
+        echo "請先執行這行魔法指令修復它：sudo chown -R \$(whoami) $dir"
         exit 1
     fi
 done
@@ -54,13 +54,13 @@ is_cask_installed() {
 }
 
 echo "============================================"
-echo "🔍 正在為您掃描系統環境，請稍候..."
+echo "🔍 正在為您全面偵測系統環境，請給我們幾秒鐘發揮魔力！✨"
 echo "============================================"
 
 # 1. 基礎環境檢查
 INSTALL_BREW=false
 if ! is_cmd_installed "brew"; then
-    echo "💡 發現您的系統還沒有 Homebrew，等一下會幫您裝起來！"
+    echo "💡 發現您的 Mac 尚未裝載 Homebrew 核心，等一下會幫您強力部署！"
 fi
 
 # 2. 智慧掃描軟體狀態
@@ -77,46 +77,46 @@ for app in "${APPS[@]}"; do
 done
 
 # 3. 輸出掃描成果摘要
-echo "--- 掃描摘要 (Scan Summary) ---"
+echo "--- 📊 戰前掃描情報摘要 ---"
 if [ ${#INSTALLED_LIST[@]} -gt 0 ]; then
-    echo "✅ 已經就緒的項目:"
+    echo "✅ 這些強大夥伴已經就緒了："
     for item in "${INSTALLED_LIST[@]}"; do echo "    - $item"; done
 fi
 
 if [ ${#MISSING_LIST[@]} -gt 0 ]; then
-    echo "📦 還需要補齊的項目:"
+    echo "📦 還需要徵召的夥伴清單："
     for item in "${MISSING_LIST[@]}"; do
         IFS="|" read -r name id category app_file <<< "$item"
         echo "    - $name ($category)"
     done
 else
-    echo "🌟 恭喜！系統環境已非常完整，所有軟體都已就緒！"
+    echo "🌟 太完美了！您的系統環境已經是完全體，沒有任何缺失！"
 fi
 echo "------------------------------"
 
-# 4. 批次詢問階段 | 把您的選擇一次告訴我吧！(／>///<)／
+# 4. 批次詢問階段 | 把您的渴望一次告訴我吧！🚀
 TO_INSTALL_CASKS=()
 INSTALL_NODE_ENV=false
 
 # 處理 Homebrew 需求
 if ! is_cmd_installed "brew"; then
-    echo -n "👉 是否要安裝 Homebrew? (y/n) "
+    echo -n "👉 準備好要部署最強套件管理器 Homebrew 了嗎？ (y/n) "
     read ans
     if [[ "$ans" =~ ^[Yy]$ ]]; then
         INSTALL_BREW=true
     else
-        echo "❌ 由於 Homebrew 是必備組件，安裝將無法繼續。"
+        echo "❌ 哎呀！沒有 Homebrew 我們就無法繼續下去了，安裝中止。"
         exit 1
     fi
 fi
 
-# 處理缺失軟體需求 (批次詢問，效率第一！)
+# 處理缺失軟體需求
 if [ ${#MISSING_LIST[@]} -gt 0 ]; then
     echo ""
-    echo "--- 請選擇您想要安裝的軟體 ---"
+    echo "--- 🛠️ 裝備選擇時間！請選擇您要徵召的夥伴 ---"
     for item in "${MISSING_LIST[@]}"; do
         IFS="|" read -r name id category app_file <<< "$item"
-        echo -n "需要安裝 [$category] $name 嗎? (y/n) "
+        echo -n "想在您的 Mac 上迎接 [$category] $name 嗎？ (y/n) "
         read answer
         [[ "$answer" =~ ^[Yy]$ ]] && TO_INSTALL_CASKS+=("$id")
     done
@@ -124,52 +124,52 @@ fi
 
 # 處理 Node.js 需求
 if ! is_cmd_installed "node"; then
-    echo -n "需要安裝 [開發] Node.js 與 Gemini CLI 嗎? (y/n) "
+    echo -n "想喚醒強大的 [開發環境] Node.js 與 Gemini CLI 嗎？ (y/n) "
     read answer
     [[ "$answer" =~ ^[Yy]$ ]] && INSTALL_NODE_ENV=true
 fi
 
-# 5. 批次執行安裝階段 | 精彩的要來了！🚀
+# 5. 批次執行安裝階段 | 精彩的要來了！🔥
 echo ""
 echo "============================================"
-echo "🚀 啟動安裝程序！您可以先去喝杯咖啡，交給我吧！"
+echo "🔥 衝啊！現在開始全速安裝！您可以先去喝杯咖啡慶祝一下！"
 echo "============================================"
 
 # [1] 安裝 Homebrew
 if [ "$INSTALL_BREW" = true ]; then
-    echo ">>> 正在為您部署 Homebrew..."
+    echo ">>> 正在為您召喚 Homebrew 降臨..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # [2] 檢查基礎 Brewfile
-echo ">>> 正在根據 Brewfile 檢查基礎配置..."
+echo ">>> 正在根據 Brewfile 檢查基礎配置庫，確保固若金湯..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-# [3] 執行軟體批次安裝 (含自癒同步清理)
+# [3] 執行軟體批次安裝 (含智慧同步)
 if [ ${#TO_INSTALL_CASKS[@]} -gt 0 ]; then
     for id in "${TO_INSTALL_CASKS[@]}"; do
         # 智慧自癒：清理殘留紀錄
         if brew list --cask "$id" &> /dev/null; then
-            echo ">>> [同步] 偵測到 $id 的舊紀錄，正在幫您執行強制清理..."
+            echo ">>> [同步] 發現 $id 留下的殘影，正在強制清除並重新召喚..."
             brew uninstall --force "$id"
         fi
-        echo ">>> 正在為您安裝 $id..."
+        echo ">>> 正在全速安裝 $id..."
         brew install --cask "$id"
     done
 fi
 
 # [4] 部署開發環境 (Node.js)
 if [ "$INSTALL_NODE_ENV" = true ]; then
-    echo ">>> 正在部署 Node.js 與喚醒 Gemini CLI..."
+    echo ">>> 正在連接 Node.js 能量，並賦予 Gemini CLI 生命..."
     brew install node
     npm install -g @google/generative-ai
 fi
 
-# [5] 配置同步大工程 (Zsh / P10k)
-echo ">>> 正在進行最後的設定檔同步..."
+# [5] 設定檔同步大工程 (Zsh / P10k)
+echo ">>> 正在同步您的設定檔，注入靈魂中..."
 
-# Oh My Zsh 安裝與自定義
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo ">>> 正在部署 Oh My Zsh 框架..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
@@ -181,14 +181,15 @@ fi
 [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
-# 導入 iTerm2 主題
+# 導入 iTerm2 配色方案
+echo ">>> 導入華麗的 Tomorrow Night Eighties 配色..."
 open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 
 echo "============================================"
-echo "🎉 所有的安裝與設定都完成啦！您太棒了！"
+echo "🎊 萬歲！所有的安裝與設定都完美達成！"
 echo "--------------------------------------------"
-echo "💡 最後的溫馨小提醒 (手動設定步驟):"
-echo "1. iTerm2 > 設定 > Profiles > Text > Font: 選擇 'MesloLGS NF'"
-echo "2. iTerm2 > 設定 > Profiles > Colors > Color Presets: 選擇 'Tomorrow Night Eighties'"
-echo "3. 執行 'p10k configure' 可以重新調整您的終端機風格喔！"
+echo "🌟 記得完成最後的熱血設定 (手動步驟):"
+echo "1. iTerm2 > 設定 > Profiles > Text > Font: 選中 'MesloLGS NF'"
+echo "2. iTerm2 > 設定 > Profiles > Colors > Color Presets: 選中 'Tomorrow Night Eighties'"
+echo "3. 執行 'p10k configure' 打造您專屬的終端機外型！"
 echo "============================================"
