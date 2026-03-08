@@ -160,9 +160,9 @@ fi
 
 # [4] 部署開發環境 (Node.js)
 if [ "$INSTALL_NODE_ENV" = true ]; then
-    echo ">>> 正在連接 Node.js 能量，並賦予 Gemini CLI 生命..."
+    echo ">>> 正在連接 Node.js 能量，並賦予 AI 助手們生命 (Gemini & Copilot)..."
     brew install node
-    npm install -g @google/generative-ai
+    npm install -g @google/generative-ai @githubnext/github-copilot-cli
 fi
 
 # [5] 設定檔同步大工程 (Zsh / P10k)

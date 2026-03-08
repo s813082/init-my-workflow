@@ -18,7 +18,7 @@ An automated macOS initialization suite designed to get you up and running in re
 
 ### 🛠️ The Powerhouse Toolkit
 - **Essentials**: [Chrome](https://www.google.com/chrome/), [iTerm2](https://iterm2.com/), [Rectangle](https://rectangleapp.com/), [IINA](https://iina.io/), [AlDente](https://github.com/davidwernhart/AlDente), [Obsidian](https://obsidian.md/).
-- **Dev Power**: [VSCode](https://code.visualstudio.com/), [Postman](https://www.postman.com/), [DBeaver](https://dbeaver.io/), [Node.js](https://nodejs.org/).
+- **Dev Power**: [VSCode](https://code.visualstudio.com/), [Postman](https://www.postman.com/), [DBeaver](https://dbeaver.io/), [Node.js & AI CLI (Gemini, Copilot)](https://nodejs.org/).
 - **Boosters**: [Stats](https://github.com/exelban/stats), [Keka](https://www.keka.io/), [Spotify](https://www.spotify.com/), [Telegram](https://telegram.org/).
 
 ### ⚡ One-Line Magic
@@ -43,7 +43,7 @@ sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-work
 
 ### 📦 包含軟體清單
 - **基礎核心**: [Google Chrome](https://www.google.com/chrome/), [iTerm2](https://iterm2.com/), [Rectangle](https://rectangleapp.com/), [IINA](https://iina.io/), [AlDente](https://github.com/davidwernhart/AlDente), [Obsidian](https://obsidian.md/).
-- **專業開發**: [VSCode](https://code.visualstudio.com/), [Postman](https://www.postman.com/), [DBeaver](https://dbeaver.io/), [Node.js](https://nodejs.org/).
+- **專業開發**: [VSCode](https://code.visualstudio.com/), [Postman](https://www.postman.com/), [DBeaver](https://dbeaver.io/), [Node.js & AI CLI (Gemini, Copilot)](https://nodejs.org/).
 - **效率與社群**: [Stats](https://github.com/exelban/stats), [Keka](https://www.keka.io/), [Spotify](https://www.spotify.com/), [Telegram](https://telegram.org/).
 
 ### 🛠️ 一鍵安裝指令
