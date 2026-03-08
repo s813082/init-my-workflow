@@ -6,6 +6,22 @@
 DOTFILES_DIR="/Users/lisa20260130/Documents/init-my-workflow"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
+# 0. 權限預檢
+if [[ "$EUID" -eq 0 ]]; then
+    echo "ERROR: Do not run this script as root/sudo. Homebrew will fail."
+    exit 1
+fi
+
+# 檢查常見寫入目錄 (避免安裝中途報錯)
+CHECK_DIRS=("/usr/local/bin" "/usr/local/share" "/usr/local/share/man/man8")
+for dir in "${CHECK_DIRS[@]}"; do
+    if [ -d "$dir" ] && [ ! -w "$dir" ]; then
+        echo "ERROR: Directory $dir is not writable."
+        echo "Please execute: sudo chown -R \$(whoami) $dir"
+        exit 1
+    fi
+done
+
 echo "============================================"
 echo "macOS Initialization Started"
 echo "============================================"
