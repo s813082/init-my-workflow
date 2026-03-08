@@ -26,41 +26,21 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
-        
-        body { 
-            font-family: 'Noto Sans TC', sans-serif; 
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
+        body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         .dark body { background-color: #0a0a0c; color: #e0e0e0; }
         .light body { background-color: #f8fafc; color: #1e293b; }
-
-        .cyber-grid {
-            background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-        }
+        .cyber-grid { background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .light .cyber-grid { background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px); }
-
-        .glass-card {
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-        }
+        .glass-card { backdrop-filter: blur(12px); transition: all 0.3s ease; }
         .dark .glass-card { background: rgba(22, 22, 30, 0.7); border: 1px solid rgba(0, 242, 255, 0.1); }
         .light .glass-card { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-
-        .dark .glass-card:hover { border-color: rgba(0, 242, 255, 0.5); }
-        .light .glass-card:hover { border-color: #00f2ff; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
-
         .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
         .nav-link { position: relative; padding-bottom: 4px; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
         .nav-link:hover::after { width: 100%; }
-
-        .terminal-window { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
+        .terminal-window { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); transition: background-color 0.3s ease; }
         .dark .terminal-window { background: #1a1b26; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .light .terminal-window { background: #f1f5f9; border: 1px solid rgba(0, 0, 0, 0.1); }
+        .light .terminal-window { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.1); }
     </style>
 </head>
 <body class="antialiased">
@@ -73,21 +53,18 @@
                 <div class="w-8 h-8 bg-gradient-to-tr from-cyber-cyan to-cyber-purple rounded-lg rotate-12 flex items-center justify-center text-white">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase">init-my-workflow</span>
+                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase dark:text-white light:text-slate-900">init-my-workflow</span>
             </div>
             <div class="flex items-center gap-4 md:gap-8">
-                <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <div class="hidden md:flex gap-8 text-sm font-medium">
                     <a href="index.html" class="text-cyber-cyan nav-link font-bold">核心安裝</a>
-                    <a href="software.html" class="hover:text-cyber-cyan nav-link transition-colors">軟體百科</a>
-                    <a href="spec.html" class="hover:text-cyber-cyan nav-link transition-colors">技術規格</a>
+                    <a href="software.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">軟體百科</a>
+                    <a href="spec.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">技術規格</a>
                 </div>
-                <!-- Theme Toggle -->
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors">
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors ml-2">
                     <i id="theme-icon" class="fas fa-moon"></i>
                 </button>
-                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="text-gray-400 hover:text-cyber-cyan hidden sm:block text-xl">
-                    <i class="fab fa-github"></i>
-                </a>
+                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="text-gray-400 hover:text-cyber-cyan hidden sm:block text-xl"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </nav>
@@ -95,33 +72,29 @@
     <!-- Hero Section -->
     <section class="pt-40 pb-20 px-6 text-center">
         <div class="max-w-5xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight italic">打造最強 <span class="gradient-text">macOS</span> 開發環境</h1>
-            <p class="text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight italic dark:text-white light:text-slate-900 text-shadow">打造最強 <span class="gradient-text">macOS</span> 開發環境</h1>
+            <p class="mb-12 max-w-2xl mx-auto leading-relaxed text-sm md:text-base dark:text-gray-400 light:text-slate-600">
                 換新機時不再手忙腳亂。這是一套專為開發者打造的自動化工具包，透過智慧偵測與自癒同步，一鍵建立您的夢幻工作流。
             </p>
             
             <div class="flex flex-wrap justify-center gap-4 mb-20">
-                <a href="#install" class="px-8 py-4 bg-cyber-cyan text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,242,255,0.5)] transition-all">
-                    立即部署
-                </a>
-                <a href="software.html" class="px-8 py-4 border border-gray-300 dark:border-white/10 rounded-full hover:bg-gray-100 dark:hover:bg-white/5 transition-all dark:text-white light:text-slate-800">
+                <a href="#install" class="px-8 py-4 bg-cyber-cyan text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(0,242,255,0.5)] transition-all">立即部署</a>
+                <a href="software.html" class="px-8 py-4 border dark:border-white/10 light:border-slate-300 rounded-full hover:bg-gray-100 dark:hover:bg-white/5 transition-all dark:text-white light:text-slate-800">
                     探索軟體百科 <i class="fas fa-chevron-right ml-2 text-xs"></i>
                 </a>
             </div>
 
             <!-- Terminal Mockup -->
-            <div class="terminal-window rounded-xl text-left overflow-hidden max-w-3xl mx-auto font-mono text-sm md:text-base transition-colors">
+            <div class="terminal-window rounded-xl text-left overflow-hidden max-w-3xl mx-auto font-mono text-sm md:text-base">
                 <div class="bg-slate-200 dark:bg-[#24283b] px-4 py-2 border-b border-black/5 dark:border-white/5 flex gap-2">
-                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div><div class="w-3 h-3 rounded-full bg-yellow-500/50"></div><div class="w-3 h-3 rounded-full bg-green-500/50"></div>
                 </div>
                 <div class="p-6 space-y-2">
                     <p class="text-purple-600 dark:text-purple-400 font-bold">$ git clone https://github.com/s813082/init-my-workflow.git</p>
                     <p class="text-blue-600 dark:text-blue-400">$ cd init-my-workflow && ./install.sh</p>
                     <p class="text-gray-500 mt-4">🔍 正在為您全面偵測系統環境...</p>
-                    <p class="text-green-600 dark:text-green-400">✅ 已就緒：Google Chrome, iTerm2, LINE...</p>
-                    <p class="text-yellow-600 dark:text-yellow-400">📦 待徵召：VSCode, Stats, Keka...</p>
+                    <p class="text-green-600 dark:text-green-400 font-medium">✅ 已就緒：Google Chrome, iTerm2, LINE...</p>
+                    <p class="text-yellow-600 dark:text-yellow-400 font-medium">📦 待徵召：VSCode, Stats, Keka...</p>
                     <p class="animate-pulse text-cyber-cyan mt-2">_</p>
                 </div>
             </div>
@@ -131,20 +104,18 @@
     <!-- Installation -->
     <section id="install" class="py-20 px-6">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8 italic uppercase tracking-widest dark:text-white light:text-slate-800">一鍵啟動指令</h2>
-            <div class="glass-card p-2 rounded-2xl flex items-center gap-4 group transition-colors">
+            <h2 class="text-3xl font-bold mb-8 italic uppercase tracking-widest dark:text-white light:text-slate-900">一鍵啟動指令</h2>
+            <div class="glass-card p-2 rounded-2xl flex items-center gap-4 group">
                 <div class="bg-gray-100 dark:bg-cyber-gray/50 px-6 py-4 rounded-xl font-mono text-xs md:text-sm flex-1 text-left overflow-x-auto whitespace-nowrap text-blue-600 dark:text-cyber-cyan">
                     git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow && sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && chmod +x install.sh && ./install.sh
                 </div>
-                <button onclick="copyCommand()" class="pr-6 text-gray-400 hover:text-cyber-cyan transition-colors">
-                    <i class="far fa-copy text-xl"></i>
-                </button>
+                <button onclick="copyCommand()" class="pr-6 dark:text-gray-400 light:text-slate-400 hover:text-cyber-cyan transition-colors"><i class="far fa-copy text-xl"></i></button>
             </div>
             <div id="copy-toast" class="opacity-0 mt-4 transition-opacity text-cyber-cyan text-sm font-bold">指令已複製！✨</div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-gray-200 dark:border-white/5 text-center text-gray-500 text-xs transition-colors">
+    <footer class="py-12 border-t border-gray-200 dark:border-white/5 text-center text-gray-500 text-xs">
         <p>© 2026 Barry Tsai. 所有網頁檔案均存放在 /docs 目錄中。</p>
     </footer>
 
@@ -153,28 +124,21 @@
             const html = document.documentElement;
             const icon = document.getElementById('theme-icon');
             if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+                html.classList.remove('dark'); html.classList.add('light');
+                icon.classList.replace('fa-moon', 'fa-sun');
                 localStorage.setItem('theme', 'light');
             } else {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+                html.classList.remove('light'); html.classList.add('dark');
+                icon.classList.replace('fa-sun', 'fa-moon');
                 localStorage.setItem('theme', 'dark');
             }
         }
-
-        // Initialize theme from storage
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.documentElement.classList.remove('dark');
             document.documentElement.classList.add('light');
             document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
         }
-
         function copyCommand() {
             const cmd = 'git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow && sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && chmod +x install.sh && ./install.sh';
             navigator.clipboard.writeText(cmd);
