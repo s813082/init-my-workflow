@@ -88,7 +88,16 @@ if [ ${#INSTALLED_LIST[@]} -gt 0 ]; then
     echo "[✔] 偵測到已安裝項目:"
     for item in "${INSTALLED_LIST[@]}"; do echo "    - $item"; done
 fi
-echo "[✘] 缺失項目: ${#MISSING_LIST[@]} 項"
+
+if [ ${#MISSING_LIST[@]} -gt 0 ]; then
+    echo "[✘] 偵測到缺失項目:"
+    for item in "${MISSING_LIST[@]}"; do
+        IFS="|" read -r name id category app_file <<< "$item"
+        echo "    - $name ($category)"
+    done
+else
+    echo "[✔] 系統環境已完整安裝所有軟體。"
+fi
 echo "----------------"
 
 # 4. 批次詢問階段
