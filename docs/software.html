@@ -6,252 +6,152 @@
     <title>軟體百科 | init-my-workflow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        cyber: { black: '#0a0a0c', gray: '#16161e', cyan: '#00f2ff', purple: '#7000ff', magenta: '#ff007c' }
+                        slate: { 950: '#020617' },
+                        indigo: { 600: '#4f46e5', 400: '#818cf8' }
                     }
                 }
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
-        .dark body { background-color: #0a0a0c; color: #e0e0e0; }
-        .light body { background-color: #f8fafc; color: #1e293b; }
-        .cyber-grid { background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .light .cyber-grid { background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px); }
-        .software-card { backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; height: 100%; }
-        .dark .software-card { background: rgba(22, 22, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .light .software-card { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        .software-card:hover { transform: scale(1.02); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
-        .dark .software-card:hover { border-color: rgba(0, 242, 255, 0.4); }
-        .light .software-card:hover { border-color: #00f2ff; }
-        .icon-box { width: 56px; height: 56px; border-radius: 12px; display: flex; items-center: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; padding: 10px; flex-shrink: 0; }
-        .dark .icon-box { background: rgba(255,255,255,0.03); }
-        .light .icon-box { background: #f1f5f9; border-color: rgba(0,0,0,0.05); }
-        .icon-box img { width: 100%; height: 100%; object-fit: contain; }
-        .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-link { position: relative; padding-bottom: 4px; }
-        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
-        .nav-link:hover::after { width: 100%; }
-        .category-title { border-left: 4px solid; padding-left: 1rem; font-style: italic; font-weight: 800; font-size: 1.5rem; }
-        .dark .category-title { color: white; }
-        .light .category-title { color: #1e293b; }
-    </style>
 </head>
-<body class="antialiased">
-    <div class="cyber-grid"></div>
-
-    <!-- Unified Navbar -->
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 dark:bg-cyber-black/80 light:bg-white/80 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-gradient-to-tr from-cyber-cyan to-cyber-purple rounded-lg rotate-12 flex items-center justify-center text-white">
-                    <i class="fas fa-bolt"></i>
+<body class="antialiased selection:bg-indigo-500/30">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-10 h-10 btn-primary rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12">
+                    <i class="fas fa-bolt text-lg"></i>
                 </div>
-                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase dark:text-white light:text-slate-900">init-my-workflow</span>
+                <span class="font-display font-bold text-xl tracking-tight dark:text-white light:text-slate-900">init-my-workflow</span>
             </div>
-            <div class="flex items-center gap-4 md:gap-8">
-                <div class="hidden md:flex gap-8 text-sm font-medium">
-                    <a href="index.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">核心安裝</a>
-                    <a href="software.html" class="text-cyber-cyan nav-link font-bold underline decoration-2 underline-offset-8">軟體百科</a>
-                    <a href="spec.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">技術規格</a>
+            <div class="flex items-center gap-8">
+                <div class="hidden md:flex gap-10 text-sm font-medium">
+                    <a href="index.html" class="nav-link">核心安裝</a>
+                    <a href="software.html" class="nav-link">軟體百科</a>
+                    <a href="spec.html" class="nav-link">技術規格</a>
                 </div>
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors ml-2">
-                    <i id="theme-icon" class="fas fa-moon"></i>
-                </button>
-                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="text-gray-400 hover:text-cyber-cyan hidden sm:block text-xl"><i class="fab fa-github"></i></a>
+                <div class="flex items-center gap-4 pl-6 border-l border-slate-200 dark:border-slate-800">
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 text-xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-20">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 italic uppercase tracking-tight dark:text-white light:text-slate-900 text-shadow">軟體 <span class="gradient-text">百科全書</span></h1>
-            <p class="max-w-2xl mx-auto text-sm md:text-base leading-relaxed dark:text-gray-400 light:text-slate-600">
-                這是您的終極軍火庫。我們精選了每一款工具，並確保它們能完美地融入您的開發工作流。🚀
+    <main class="pt-40 pb-32 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-24">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight dark:text-white light:text-slate-900 leading-tight">
+                軟體 <span class="gradient-text">軍火庫</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg leading-relaxed dark:text-slate-400 light:text-slate-600 font-medium">
+                每一款軟體都經過嚴格挑選，確保它們能無縫整合進您的開發工作流，極大化您的生產力。
             </p>
         </div>
 
         <!-- SECTION: 核心基礎 -->
-        <div class="mb-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="category-title border-cyber-cyan">🛡️ 核心基礎 (Core)</h2>
-                <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/5"></div>
+        <div class="mb-32">
+            <div class="flex items-center gap-6 mb-12">
+                <h2 class="font-display font-bold text-2xl dark:text-white light:text-slate-800 shrink-0">🛡️ 核心基礎 (Core)</h2>
+                <div class="h-[1px] flex-1 bg-slate-200 dark:bg-slate-800"></div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Chrome -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Chrome"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Google Chrome</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">全球最受歡迎的瀏覽器。強大的 DevTools 是開發者的標準配備。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Browser</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3">
+                        <img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Chrome">
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">Google Chrome</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">全球開發者的標配。強大的 DevTools 與豐富擴充功能，是網頁開發的不可或缺之重。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Browser</span>
+                    </div>
                 </div>
                 <!-- iTerm2 -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img class="dark:invert light:none" src="https://cdn.simpleicons.org/iterm2/000000" alt="iTerm2"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">iTerm2</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">macOS 終端機的傳奇替代品。高度自定義、支援分割視窗與強大快捷鍵。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Terminal</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3">
+                        <img class="dark:invert" src="https://cdn.simpleicons.org/iterm2/000000" alt="iTerm2">
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">iTerm2</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">macOS 終端機的神級替代品。支援分割視窗、強大搜索與極高度自定義配置。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Terminal</span>
+                    </div>
                 </div>
                 <!-- Rectangle -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box text-cyber-cyan"><i class="fas fa-th-large"></i></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Rectangle</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">讓 macOS 的視窗管理變的簡單。透過快捷鍵輕鬆完成分割與佈局。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Window Manager</span>
-                </div>
-                <!-- IINA -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box text-indigo-500"><i class="fas fa-play-circle"></i></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">IINA</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">現代化的影音播放器。介面優美、支援所有主流格式，與 macOS 深度整合。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Media Player</span>
-                </div>
-                <!-- AlDente -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box text-orange-500"><i class="fas fa-battery-half"></i></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">AlDente</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">保護您的電池。透過精準限制充電上限，大幅延長 MacBook 的電池壽命。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Battery Tool</span>
-                </div>
-                <!-- Obsidian -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/obsidian/483699" alt="Obsidian"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Obsidian</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">強大的知識管理系統。採用 Markdown 格式並支援靈活的雙向連結。</p>
-                    <span class="text-cyber-cyan text-[10px] font-bold uppercase tracking-widest">Knowledge Base</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3 text-indigo-500">
+                        <i class="fas fa-th-large text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">Rectangle</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">讓 macOS 的視窗管理變的簡單高效。透過自定義快捷鍵輕鬆完成分割與佈局。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Windows</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SECTION: 專業開發 -->
-        <div class="mb-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="category-title border-cyber-purple">💻 專業開發 (Development)</h2>
-                <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/5"></div>
+        <div class="mb-32">
+            <div class="flex items-center gap-6 mb-12">
+                <h2 class="font-display font-bold text-2xl dark:text-white light:text-slate-800 shrink-0">💻 專業開發 (Dev)</h2>
+                <div class="h-[1px] flex-1 bg-slate-200 dark:bg-slate-800"></div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- VSCode -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VSCode"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">VSCode</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">現代開發者的必備神器。擁有無窮的插件生態系，支援所有程式語言。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">Editor</span>
-                </div>
-                <!-- Sublime Text -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/sublimetext/FF9800" alt="Sublime"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Sublime Text</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">極速、輕量的程式碼編輯器。適合快速編輯文件與處理大型檔案。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">Lightweight Editor</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3">
+                        <img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VSCode">
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">VSCode</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">地表最強程式碼編輯器。擁有無與倫比的插件生態與流暢的編碼體驗。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Editor</span>
+                    </div>
                 </div>
                 <!-- Postman -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Postman</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">API 開發、測試與管理的標準工具。極大化前後端協作效率。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">API Testing</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3">
+                        <img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman">
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">Postman</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">API 開發測試的最佳夥伴。支援環境變數、自動化測試與團隊協作。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">API</span>
+                    </div>
                 </div>
                 <!-- DBeaver -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/dbeaver/382923" alt="DBeaver" class="dark:brightness-150"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">DBeaver</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">強大的通用資料庫工具。支援 MySQL, PostgreSQL, Redis 等所有主流資料庫。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">Database</span>
-                </div>
-                <!-- Gemini CLI -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/googlegemini/8E75FF" alt="Gemini"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Google Gemini CLI</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">透過終端機直接調用 Google 最強大的模型。支援快速問答與代碼生成建議。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">AI Assistant</span>
-                </div>
-                <!-- Copilot CLI -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img class="dark:invert light:none" src="https://cdn.simpleicons.org/githubcopilot/000000" alt="Copilot"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">GitHub Copilot CLI</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">您的終端機導航員。透過自然語言指令自動生成正確的 Bash/Zsh 指令。</p>
-                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">AI Shell Assistant</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION: 系統與社群 -->
-        <div class="mb-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="category-title border-cyber-magenta">🎨 系統與社群 (Social)</h2>
-                <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/5"></div>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Stats -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box text-pink-500"><i class="fas fa-microchip"></i></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Stats</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">極簡精美的系統監控。直接在選單列查看 CPU、內存、磁碟與網絡狀態。</p>
-                    <span class="text-cyber-magenta text-[10px] font-bold uppercase tracking-widest">System Monitor</span>
-                </div>
-                <!-- Keka -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box text-yellow-500"><i class="fas fa-box-open"></i></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Keka</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">macOS 必備解壓縮神器。解決 Windows 與 Mac 之間的中文編碼亂碼問題。</p>
-                    <span class="text-cyber-magenta text-[10px] font-bold uppercase tracking-widest">Archiver</span>
-                </div>
-                <!-- Spotify -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Spotify</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">寫程式時的最佳動能來源。提供海量高品質音樂與個人化歌單。</p>
-                    <span class="text-cyber-magenta text-[10px] font-bold uppercase tracking-widest">Music</span>
-                </div>
-                <!-- Telegram -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Telegram</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">快速、安全且功能強大的通訊平台。支援豐富的機器人與社群功能。</p>
-                    <span class="text-cyber-magenta text-[10px] font-bold uppercase tracking-widest">Communication</span>
-                </div>
-                <!-- LINE -->
-                <div class="software-card p-8 rounded-3xl">
-                    <div class="icon-box"><img src="https://cdn.simpleicons.org/line/00C300" alt="LINE"></div>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">LINE</h3>
-                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">在地必備的通訊軟體。連繫生活與工作不可或缺的橋樑。</p>
-                    <span class="text-cyber-magenta text-[10px] font-bold uppercase tracking-widest">Social</span>
+                <div class="glass p-8 rounded-3xl card-hover border border-slate-200 dark:border-slate-800">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden p-3">
+                        <img src="https://cdn.simpleicons.org/dbeaver/382923" alt="DBeaver">
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white light:text-slate-900">DBeaver</h3>
+                    <p class="text-sm leading-relaxed mb-6 dark:text-slate-400 light:text-slate-600 flex-1">通用型資料庫管理工具。一個介面搞定 MySQL, PostgreSQL, Redis 等所有資料庫。</p>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Database</span>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="py-12 border-t border-gray-200 dark:border-white/5 text-center text-gray-500 text-xs">
-        <p>© 2026 Barry Tsai. 所有品牌商標均歸原公司所有。</p>
+    <footer class="py-20 border-t border-slate-200 dark:border-slate-900 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-slate-400 text-sm">© 2026 Barry Tsai. 所有商標均為其各自所有者財產。</p>
+        </div>
     </footer>
 
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark'); html.classList.add('light');
-                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.remove('light'); html.classList.add('dark');
-                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-            document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
