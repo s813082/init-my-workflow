@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技術規格 | init-my-workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { cyber: { black: '#0a0a0c', gray: '#16161e', cyan: '#00f2ff', purple: '#7000ff' } } } } }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        .dark body { background-color: #0a0a0c; color: #e0e0e0; }
+        .light body { background-color: #f8fafc; color: #1e293b; }
+        .cyber-grid { background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table th, .spec-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; }
+        .light .spec-table th, .light .spec-table td { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="cyber-grid"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 dark:bg-cyber-black/80 light:bg-white/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gradient-to-tr from-cyber-cyan to-cyber-purple rounded-lg rotate-12 flex items-center justify-center text-white">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="font-bold text-lg md:text-xl tracking-tighter uppercase">init-my-workflow</span>
+            </div>
+            <div class="flex items-center gap-4 md:gap-8 text-xs md:text-sm font-medium text-gray-400">
+                <a href="index.html" class="hover:text-cyber-cyan nav-link transition-colors">核心安裝</a>
+                <a href="software.html" class="hover:text-cyber-cyan nav-link transition-colors">軟體百科</a>
+                <a href="spec.html" class="text-cyber-cyan nav-link font-bold">技術規格</a>
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors ml-2">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 italic tracking-tight">技術規格與 <span class="gradient-text">版本政策</span></h1>
+            <p class="text-gray-500 dark:text-gray-400">本工作流採用「滾動更新」模式，確保您永遠使用的是官方最穩定、最新的版本。</p>
+        </div>
+
+        <div class="bg-white/5 dark:bg-cyber-gray/40 rounded-3xl p-8 backdrop-blur-xl border border-white/5 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-code-branch text-cyber-cyan"></i> 軟體版本清單
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="spec-table">
+                    <thead>
+                        <tr class="text-cyber-cyan text-sm uppercase tracking-widest">
+                            <th>軟體名稱</th>
+                            <th>部署版本</th>
+                            <th>獲取來源</th>
+                            <th>官方更新日誌</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-400">
+                        <tr>
+                            <td class="text-white font-bold">Google Chrome</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://chromereleases.googleblog.com/" target="_blank" class="hover:text-cyber-cyan underline">View Releases</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">VSCode</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://code.visualstudio.com/updates" target="_blank" class="hover:text-cyber-cyan underline">View Updates</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">iTerm2</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://iterm2.com/news.html" target="_blank" class="hover:text-cyber-cyan underline">View News</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">Obsidian</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://obsidian.md/changelog/" target="_blank" class="hover:text-cyber-cyan underline">View Changelog</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">Node.js</td>
+                            <td class="text-green-400">LTS / Latest</td>
+                            <td>Homebrew</td>
+                            <td><a href="https://nodejs.org/en/blog/release" target="_blank" class="hover:text-cyber-cyan underline">View Release</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">Postman</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://www.postman.com/downloads/release-notes/" target="_blank" class="hover:text-cyber-cyan underline">View Notes</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-white font-bold">Spotify</td>
+                            <td class="text-green-400">Latest Stable</td>
+                            <td>Homebrew Cask</td>
+                            <td><a href="https://community.spotify.com/t5/Desktop-Mac/bd-p/spotify_mac" target="_blank" class="hover:text-cyber-cyan underline">View Forum</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-8 text-xs text-gray-500 italic leading-relaxed">
+                * 註：由於 Homebrew 為滾動更新機制，實際安裝版本將視執行腳本當下 Homebrew 倉庫之最新紀錄為準。建議定期執行 `brew upgrade` 以維持軟體最新狀態。
+            </p>
+        </div>
+    </main>
+
+    <footer class="py-12 text-center text-gray-500 text-xs">
+        <p>© 2026 Barry Tsai. System Policy: Always Up-to-Date.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark'); html.classList.add('light');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.remove('light'); html.classList.add('dark');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
+        }
+    </script>
+</body>
+</html>
