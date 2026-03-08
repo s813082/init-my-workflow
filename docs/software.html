@@ -12,13 +12,7 @@
             theme: {
                 extend: {
                     colors: {
-                        cyber: {
-                            black: '#0a0a0c',
-                            gray: '#16161e',
-                            cyan: '#00f2ff',
-                            purple: '#7000ff',
-                            magenta: '#ff007c',
-                        }
+                        cyber: { black: '#0a0a0c', gray: '#16161e', cyan: '#00f2ff', purple: '#7000ff', magenta: '#ff007c' }
                     }
                 }
             }
@@ -42,6 +36,9 @@
         .light .icon-box { background: #f1f5f9; border-color: rgba(0,0,0,0.05); }
         .icon-box img { width: 100%; height: 100%; object-fit: contain; }
         .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
         .category-title { border-left: 4px solid; padding-left: 1rem; font-style: italic; font-weight: 800; font-size: 1.5rem; }
         .dark .category-title { color: white; }
         .light .category-title { color: #1e293b; }
@@ -50,7 +47,7 @@
 <body class="antialiased">
     <div class="cyber-grid"></div>
 
-    <!-- Navbar -->
+    <!-- Unified Navbar -->
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 dark:bg-cyber-black/80 light:bg-white/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -59,12 +56,16 @@
                 </div>
                 <span class="font-bold text-lg md:text-xl tracking-tighter uppercase dark:text-white light:text-slate-900">init-my-workflow</span>
             </div>
-            <div class="flex items-center gap-4 md:gap-8 text-xs md:text-sm font-medium">
-                <a href="index.html" class="hover:text-cyber-cyan nav-link transition-colors dark:text-gray-400 light:text-slate-600">核心安裝</a>
-                <a href="software.html" class="text-cyber-cyan nav-link font-bold">軟體百科</a>
+            <div class="flex items-center gap-4 md:gap-8">
+                <div class="hidden md:flex gap-8 text-sm font-medium">
+                    <a href="index.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">核心安裝</a>
+                    <a href="software.html" class="text-cyber-cyan nav-link font-bold underline decoration-2 underline-offset-8">軟體百科</a>
+                    <a href="spec.html" class="dark:text-gray-400 light:text-slate-600 hover:text-cyber-cyan nav-link transition-colors">技術規格</a>
+                </div>
                 <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors ml-2">
                     <i id="theme-icon" class="fas fa-moon"></i>
                 </button>
+                <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="text-gray-400 hover:text-cyber-cyan hidden sm:block text-xl"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </nav>
@@ -142,6 +143,13 @@
                     <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">VSCode</h3>
                     <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">現代開發者的必備神器。擁有無窮的插件生態系，支援所有程式語言。</p>
                     <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">Editor</span>
+                </div>
+                <!-- Sublime Text -->
+                <div class="software-card p-8 rounded-3xl">
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/sublimetext/FF9800" alt="Sublime"></div>
+                    <h3 class="text-xl font-bold mb-2 dark:text-white light:text-slate-900">Sublime Text</h3>
+                    <p class="text-sm leading-relaxed mb-4 flex-1 dark:text-gray-400 light:text-slate-600">極速、輕量的程式碼編輯器。適合快速編輯文件與處理大型檔案。</p>
+                    <span class="text-cyber-purple text-[10px] font-bold uppercase tracking-widest">Lightweight Editor</span>
                 </div>
                 <!-- Postman -->
                 <div class="software-card p-8 rounded-3xl">
