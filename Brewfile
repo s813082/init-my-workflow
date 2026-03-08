@@ -1,12 +1,14 @@
-# Homebrew 套件清單 - 基礎必備 (＃`Д´)
+# Homebrew Bundle Configuration
+# Target: macOS Environment Initialization
 tap "homebrew/cask-fonts"
 
-# 基礎工具
+# Core Development Tools
 brew "git"
 brew "zsh"
 brew "curl"
+brew "node"
 
-# 應用程式 (Casks) - 每台電腦都要裝的
+# Applications (Casks) - Core
 cask "google-chrome"
 cask "iterm2"
 cask "rectangle"
@@ -14,5 +16,5 @@ cask "iina"
 cask "aldente"
 cask "obsidian"
 
-# 專為 Powerlevel10k 設計的字體
+# Typography
 cask "font-meslo-lg-nerd-font"
