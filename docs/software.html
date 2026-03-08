@@ -45,9 +45,11 @@
         .icon-box {
             width: 64px; height: 64px; border-radius: 16px;
             display: flex; items-center: center; justify-content: center;
-            font-size: 28px; margin-bottom: 20px;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            overflow: hidden; padding: 12px;
         }
+        .icon-box img { width: 100%; height: 100%; object-fit: contain; }
         .gradient-text {
             background: linear-gradient(90deg, #00f2ff, #7000ff);
             -webkit-background-clip: text;
@@ -77,46 +79,43 @@
     <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-20">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 italic uppercase tracking-tight">軟體 <span class="gradient-text">百科全書</span></h1>
-            <p class="text-gray-400 max-w-2xl mx-auto">
-                深入了解本工作流所包含的每一款神器。我們不僅是安裝軟體，更是在為您打造最強的開發武裝！🚀
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+                深入了解本工作流所包含的每一款神器。我們整合了官方商標與詳盡介紹，讓您一眼看透最強的開發武裝！🚀
             </p>
         </div>
 
         <!-- Section: 核心基礎 -->
         <div class="mb-20">
             <div class="flex items-center gap-4 mb-10">
-                <h2 class="text-2xl font-bold border-l-4 border-cyber-cyan pl-4">🛡️ 核心基礎</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-cyber-cyan pl-4 italic">🛡️ 核心基礎 (Core)</h2>
                 <div class="h-[1px] flex-1 bg-white/5"></div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- iTerm2 -->
+                <!-- Google Chrome -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-blue-400"><i class="fas fa-terminal"></i></div>
-                    <h3 class="text-xl font-bold mb-2">iTerm2</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">macOS 上最強大的終端機替代品。支援分頁、垂直分割與高度自定義色彩方案。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Chrome"></div>
+                    <h3 class="text-xl font-bold mb-2">Google Chrome</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">全球最受歡迎的瀏覽器。強大的開發者工具 (DevTools) 是網頁開發者的命根子。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded-full">最強終端</span>
-                        <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[10px] font-bold rounded-full">高擴充性</span>
+                        <span class="px-3 py-1 bg-cyber-cyan/10 text-cyber-cyan text-[10px] font-bold rounded-full">瀏覽器</span>
                     </div>
                 </div>
-                <!-- Rectangle -->
+                <!-- iTerm2 -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-cyan-400"><i class="fas fa-th-large"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Rectangle</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">開源且輕量的視窗分割工具。透過簡單的快捷鍵，一秒完成桌面佈局排版。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/iterm2/000000" alt="iTerm2" style="filter: invert(1);"></div>
+                    <h3 class="text-xl font-bold mb-2">iTerm2</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">macOS 終端機的傳奇替代品。支援高度自定義色彩、快捷鍵與分頁管理。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-[10px] font-bold rounded-full">生產力</span>
-                        <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-[10px] font-bold rounded-full">開源</span>
+                        <span class="px-3 py-1 bg-cyber-cyan/10 text-cyber-cyan text-[10px] font-bold rounded-full">終端機</span>
                     </div>
                 </div>
                 <!-- Obsidian -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-purple-400"><i class="fas fa-brain"></i></div>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/obsidian/483699" alt="Obsidian"></div>
                     <h3 class="text-xl font-bold mb-2">Obsidian</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">您的第二大腦。採用 Markdown 格式並支援強大的雙向連結，讓靈感永不消失。</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">您的第二大腦筆記系統。採用 Markdown 格式，支援強大的雙向連結功能。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-[10px] font-bold rounded-full">筆記</span>
-                        <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-[10px] font-bold rounded-full">雙向連結</span>
+                        <span class="px-3 py-1 bg-cyber-cyan/10 text-cyber-cyan text-[10px] font-bold rounded-full">知識管理</span>
                     </div>
                 </div>
             </div>
@@ -125,73 +124,72 @@
         <!-- Section: 專業開發 -->
         <div class="mb-20">
             <div class="flex items-center gap-4 mb-10">
-                <h2 class="text-2xl font-bold border-l-4 border-cyber-purple pl-4">💻 專業開發</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-cyber-purple pl-4 italic">💻 專業開發 (Development)</h2>
                 <div class="h-[1px] flex-1 bg-white/5"></div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- VSCode -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-blue-500"><i class="fas fa-code"></i></div>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VSCode"></div>
                     <h3 class="text-xl font-bold mb-2">VSCode</h3>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">地表最強程式碼編輯器。擁有無盡的插件生態系，支援所有現代開發語言。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-500/10 text-blue-500 text-[10px] font-bold rounded-full">必備編輯器</span>
+                        <span class="px-3 py-1 bg-cyber-purple/10 text-cyber-purple text-[10px] font-bold rounded-full">編輯器</span>
                     </div>
                 </div>
-                <!-- DBeaver -->
+                <!-- Postman -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-orange-400"><i class="fas fa-database"></i></div>
-                    <h3 class="text-xl font-bold mb-2">DBeaver</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">全能資料庫管理工具。支援 MySQL, PostgreSQL, SQLite 等所有主流資料庫。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman"></div>
+                    <h3 class="text-xl font-bold mb-2">Postman</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">API 開發與測試的首選工具。讓前後端串接與測試變得無比簡單。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-orange-500/10 text-orange-400 text-[10px] font-bold rounded-full">資料庫</span>
+                        <span class="px-3 py-1 bg-cyber-purple/10 text-cyber-purple text-[10px] font-bold rounded-full">API 測試</span>
                     </div>
                 </div>
-                <!-- Copilot CLI -->
+                <!-- GitHub Copilot -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-green-400"><i class="fas fa-robot"></i></div>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/githubcopilot/FFFFFF" alt="Copilot" style="filter: invert(1);"></div>
                     <h3 class="text-xl font-bold mb-2">AI Toolkit</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">整合 Gemini 與 Copilot CLI。讓 AI 直接常駐在您的終端機，隨時解救您的 Bug。</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">整合 Gemini 與 Copilot CLI。讓 AI 助手常駐終端機，隨時解救您的 Bug。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded-full">AI 助手</span>
-                        <span class="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded-full">最新科技</span>
+                        <span class="px-3 py-1 bg-cyber-purple/10 text-cyber-purple text-[10px] font-bold rounded-full">AI 助手</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Section: 效率系統 -->
+        <!-- Section: 社交與娛樂 -->
         <div class="mb-20">
             <div class="flex items-center gap-4 mb-10">
-                <h2 class="text-2xl font-bold border-l-4 border-cyber-magenta pl-4">⚡ 效率系統</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-cyber-magenta pl-4 italic">🎨 社交娛樂 (Social & Fun)</h2>
                 <div class="h-[1px] flex-1 bg-white/5"></div>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Stats -->
+                <!-- Spotify -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-pink-400"><i class="fas fa-microchip"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Stats</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">最精美的系統監控工具。直接在選單列查看 CPU、記憶體、硬碟與網路狀態。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify"></div>
+                    <h3 class="text-xl font-bold mb-2">Spotify</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">寫程式時的最佳戰鬥音樂伴侶。提供高品質串流音質與海量歌單。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-pink-500/10 text-pink-400 text-[10px] font-bold rounded-full">系統監控</span>
+                        <span class="px-3 py-1 bg-cyber-magenta/10 text-cyber-magenta text-[10px] font-bold rounded-full">音樂</span>
                     </div>
                 </div>
-                <!-- Keka -->
+                <!-- Telegram -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-yellow-400"><i class="fas fa-box-open"></i></div>
-                    <h3 class="text-xl font-bold mb-2">Keka</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">萬能解壓縮神器。解決 Windows 與 macOS 間壓縮檔編碼亂碼問題的唯一救星。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"></div>
+                    <h3 class="text-xl font-bold mb-2">Telegram</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">注重隱私、速度極快且功能強大的現代化通訊平台。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 text-[10px] font-bold rounded-full">必備工具</span>
+                        <span class="px-3 py-1 bg-cyber-magenta/10 text-cyber-magenta text-[10px] font-bold rounded-full">通訊</span>
                     </div>
                 </div>
-                <!-- IINA -->
+                <!-- LINE -->
                 <div class="software-card p-8 rounded-3xl group">
-                    <div class="icon-box text-indigo-400"><i class="fas fa-play"></i></div>
-                    <h3 class="text-xl font-bold mb-2">IINA</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">為現代 macOS 而生的影片播放器。支援所有格式，具備強大的手勢與介面美感。</p>
+                    <div class="icon-box"><img src="https://cdn.simpleicons.org/line/00C300" alt="LINE"></div>
+                    <h3 class="text-xl font-bold mb-2">LINE</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">台灣最普及的社交應用程式，生活與工作聯繫的必備橋樑。</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold rounded-full">極致流暢</span>
+                        <span class="px-3 py-1 bg-cyber-magenta/10 text-cyber-magenta text-[10px] font-bold rounded-full">社群</span>
                     </div>
                 </div>
             </div>
@@ -199,7 +197,7 @@
     </main>
 
     <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
-        <p>© 2026 Barry Tsai. Created with ❤️ and Cyberpunk Vibes.</p>
+        <p>© 2026 Barry Tsai. All brand logos belong to their respective owners.</p>
     </footer>
 </body>
 </html>
