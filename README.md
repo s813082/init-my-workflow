@@ -1,30 +1,26 @@
 # init-my-workflow
 
+[English](#english) | [中文](#中文)
+
+---
+
+<a name="english"></a>
+## English
+
 Automated macOS environment initialization script for rapid development setup.
 
-## Features
-
+### 🚀 Features
 - **Package Management**: Automated installation via Homebrew (Brewfile).
 - **Shell Environment**: Zsh configuration with Oh My Zsh and Powerlevel10k theme.
 - **Terminal Customization**: iTerm2 with Tomorrow Night Eighties color scheme and Nerd Fonts.
 - **Interactive Installation**: Selective deployment of development, database, and social tools.
 - **Symbolic Linking**: Automated synchronization of dotfiles to user home directory.
 
-## Included Software
+### 📦 Included Software
+- **Core (Default)**: Google Chrome, iTerm2, Rectangle, IINA, AlDente, Obsidian.
+- **Optional**: VSCode, Sublime Text, Postman, DBeaver Community, Stats, Keka, Spotify, Telegram, LINE, Gemini CLI.
 
-### Core (Default)
-- **Browsers**: Google Chrome
-- **Terminal**: iTerm2 (with MesloLGS NF)
-- **Utilities**: Rectangle (Window Management), IINA (Media Player), AlDente (Battery Management), Obsidian (Knowledge Base)
-
-### Optional (Interactive Selection)
-- **Development**: VSCode, Sublime Text, Postman, DBeaver Community
-- **AI Tools**: Node.js, Gemini CLI
-- **System Enhancement**: Stats (System Monitor), Keka (Archiver)
-- **Communication**: Spotify, Telegram, LINE
-
-## Installation
-
+### 🛠️ Installation
 ```bash
 git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow
 cd ~/Documents/init-my-workflow
@@ -32,18 +28,36 @@ chmod +x install.sh
 ./install.sh
 ```
 
-## Post-Installation Requirements
+---
 
-1. **iTerm2 Font**: Navigate to `Settings > Profiles > Text` and select **MesloLGS NF**.
-2. **iTerm2 Color**: Navigate to `Settings > Profiles > Colors` and import/select **Tomorrow Night Eighties**.
-3. **P10K Configuration**: Execute `p10k configure` to customize the prompt style.
+<a name="中文"></a>
+## 中文 (Traditional Chinese)
 
-## Maintenance
+專為 macOS 設計的自動化環境初始化腳本，用於快速建立開發環境。
 
-Update software list via:
+### 🚀 功能特點
+- **套件管理**: 透過 Homebrew (Brewfile) 自動安裝軟體。
+- **Shell 環境**: 預設配置 Oh My Zsh 與 Powerlevel10k 主題。
+- **終端機美化**: 配置 iTerm2、Tomorrow Night Eighties 配色方案及 Nerd Fonts。
+- **互動式安裝**: 可選擇性安裝開發工具、資料庫及社群軟體。
+- **設定檔同步**: 自動將設定檔 (dotfiles) 以軟連結方式同步至使用者目錄。
+
+### 📦 包含軟體
+- **基礎必備 (預設)**: Google Chrome, iTerm2, Rectangle, IINA, AlDente, Obsidian。
+- **選配工具**: VSCode, Sublime Text, Postman, DBeaver Community, Stats, Keka, Spotify, Telegram, LINE, Gemini CLI。
+
+### 🛠️ 安裝方式
 ```bash
-brew bundle dump --force
+git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow
+cd ~/Documents/init-my-workflow
+chmod +x install.sh
+./install.sh
 ```
+
+### ⚠️ 後續手動步驟 (Post-Installation)
+1. **iTerm2 字體**: 進入 `Settings > Profiles > Text` 並選擇 **MesloLGS NF**。
+2. **iTerm2 配色**: 進入 `Settings > Profiles > Colors` 並導入/選擇 **Tomorrow Night Eighties**。
+3. **P10K 調整**: 執行 `p10k configure` 即可自定義終端機風格。
 
 ## License
 MIT
