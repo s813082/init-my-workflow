@@ -44,15 +44,12 @@ done
 # 指令檢查函式
 is_cmd_installed() { command -v "$1" &> /dev/null; }
 
-# 增強版 Cask 檢查函式 (檢查 brew 紀錄與 /Applications 目錄)
+# 修正版 Cask 檢查函式 (以實體目錄為唯一判斷依據)
 is_cask_installed() {
     local cask_id=$1
     local app_file=$2
     
-    # 1. 檢查 Homebrew 紀錄
-    brew list --cask "$cask_id" &> /dev/null && return 0
-    
-    # 2. 檢查 /Applications 及其子目錄
+    # 檢查 /Applications 及其子目錄
     [ -d "/Applications/${app_file}.app" ] && return 0
     [ -d "$HOME/Applications/${app_file}.app" ] && return 0
     
