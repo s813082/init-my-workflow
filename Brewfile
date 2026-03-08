@@ -1,6 +1,6 @@
 # Homebrew Bundle Configuration
 # Target: macOS Environment Initialization
-tap "homebrew/cask-fonts"
+# Fonts are now integrated into the default cask tap.
 
 # Core Development Tools
 brew "git"
