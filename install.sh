@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # macOS 智慧批次安裝腳本 (init-my-workflow)
-# 邏輯：掃描 -> 批次詢問 -> 不中斷安裝
+# 邏輯：掃描 -> 批次詢問 -> 清理殘留 -> 不中斷安裝
 
 DOTFILES_DIR="/Users/lisa20260130/Documents/init-my-workflow"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -44,15 +44,17 @@ done
 # 指令檢查函式
 is_cmd_installed() { command -v "$1" &> /dev/null; }
 
+# 檢查 brew 註冊表
+is_in_brew_registry() {
+    brew list --cask "$1" &> /dev/null
+}
+
 # 修正版 Cask 檢查函式 (以實體目錄為唯一判斷依據)
 is_cask_installed() {
     local cask_id=$1
     local app_file=$2
-    
-    # 檢查 /Applications 及其子目錄
     [ -d "/Applications/${app_file}.app" ] && return 0
     [ -d "$HOME/Applications/${app_file}.app" ] && return 0
-    
     return 1
 }
 
@@ -148,9 +150,14 @@ fi
 echo ">>> 正在檢查基礎核心套件..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-# [步驟 3] 批次安裝已選取軟體
+# [步驟 3] 批次安裝已選取軟體 (含同步與清理)
 if [ ${#TO_INSTALL_CASKS[@]} -gt 0 ]; then
     for id in "${TO_INSTALL_CASKS[@]}"; do
+        # 檢查是否有殘留紀錄 (實體已刪除但 brew 還記著)
+        if is_in_brew_registry "$id"; then
+            echo ">>> [同步] 偵測到 $id 殘留紀錄，正在強制清除..."
+            brew uninstall --force "$id"
+        fi
         echo ">>> 正在安裝 $id..."
         brew install --cask "$id"
     done
