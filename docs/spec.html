@@ -7,18 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { cyber: { black: '#0a0a0c', gray: '#16161e', cyan: '#00f2ff', purple: '#7000ff' } } } } }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: { black: '#0a0a0c', gray: '#16161e', cyan: '#00f2ff', purple: '#7000ff' }
+                    }
+                }
+            }
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
+        
+        /* Dark Mode Colors */
         .dark body { background-color: #0a0a0c; color: #e0e0e0; }
+        .dark .spec-text-main { color: #ffffff; font-weight: 700; }
+        .dark .spec-text-sub { color: #94a3b8; }
+        .dark .spec-table th, .dark .spec-table td { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* Light Mode Colors */
         .light body { background-color: #f8fafc; color: #1e293b; }
+        .light .spec-text-main { color: #0f172a; font-weight: 800; } /* 粗體黑字 */
+        .light .spec-text-sub { color: #475569; }
+        .light .spec-table th, .light .spec-table td { border-bottom: 1px solid rgba(0,0,0,0.1); }
+
         .cyber-grid { background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .light .cyber-grid { background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px); }
+        
         .spec-table { width: 100%; border-collapse: collapse; }
-        .spec-table th, .spec-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: left; }
-        .light .spec-table th, .light .spec-table td { border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .spec-table th, .spec-table td { padding: 1rem; text-align: left; }
+        
         .gradient-text { background: linear-gradient(90deg, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-link { position: relative; padding-bottom: 4px; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #00f2ff, #7000ff); transition: width 0.3s ease; }
@@ -59,7 +80,7 @@
             </p>
         </div>
 
-        <div class="bg-white/5 dark:bg-cyber-gray/40 rounded-3xl p-8 backdrop-blur-xl border border-white/5 shadow-2xl transition-colors light:bg-white light:border-slate-200">
+        <div class="dark:bg-cyber-gray/40 rounded-3xl p-8 backdrop-blur-xl border border-white/5 shadow-2xl transition-colors light:bg-white light:border-slate-200">
             <h2 class="text-2xl font-bold mb-6 flex items-center gap-3 dark:text-white light:text-slate-800">
                 <i class="fas fa-code-branch text-cyber-cyan"></i> 軟體版本清單
             </h2>
@@ -75,45 +96,45 @@
                     </thead>
                     <tbody class="text-sm">
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">Google Chrome</td>
+                            <td class="spec-text-main">Google Chrome</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://chromereleases.googleblog.com/" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Releases</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">VSCode</td>
+                            <td class="spec-text-main">VSCode</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://code.visualstudio.com/updates" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Updates</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">iTerm2</td>
+                            <td class="spec-text-main">iTerm2</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://iterm2.com/news.html" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View News</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">Obsidian</td>
+                            <td class="spec-text-main">Obsidian</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://obsidian.md/changelog/" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Changelog</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">Node.js</td>
+                            <td class="spec-text-main">Node.js</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">LTS / Latest</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew</td>
+                            <td class="spec-text-sub">Homebrew</td>
                             <td><a href="https://nodejs.org/en/blog/release" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Release</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">Postman</td>
+                            <td class="spec-text-main">Postman</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://www.postman.com/downloads/release-notes/" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Notes</a></td>
                         </tr>
                         <tr>
-                            <td class="font-bold dark:text-white light:text-slate-900">Spotify</td>
+                            <td class="spec-text-main">Spotify</td>
                             <td class="dark:text-green-400 light:text-green-600 font-bold">Latest Stable</td>
-                            <td class="dark:text-gray-400 light:text-slate-600">Homebrew Cask</td>
+                            <td class="spec-text-sub">Homebrew Cask</td>
                             <td><a href="https://community.spotify.com/t5/Desktop-Mac/bd-p/spotify_mac" target="_blank" class="dark:text-cyber-cyan light:text-blue-600 hover:underline">View Forum</a></td>
                         </tr>
                     </tbody>
