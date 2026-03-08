@@ -6,23 +6,23 @@
 DOTFILES_DIR="/Users/lisa20260130/Documents/init-my-workflow"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
-# 軟體定義清單 (名稱|CaskID|類別)
+# 軟體定義清單 (名稱|CaskID|類別|應用程式目錄名稱)
 APPS=(
-    "Google Chrome|google-chrome|核心"
-    "iTerm2|iterm2|核心"
-    "Rectangle|rectangle|核心"
-    "IINA|iina|核心"
-    "AlDente|aldente|核心"
-    "Obsidian|obsidian|核心"
-    "VSCode|visual-studio-code|開發"
-    "Sublime Text|sublime-text|開發"
-    "Postman|postman|開發"
-    "DBeaver|dbeaver-community|開發"
-    "Stats|stats|系統"
-    "Keka|keka|系統"
-    "Spotify|spotify|娛樂"
-    "Telegram|telegram|社群"
-    "LINE|line|社群"
+    "Google Chrome|google-chrome|核心|Google Chrome"
+    "iTerm2|iterm2|核心|iTerm"
+    "Rectangle|rectangle|核心|Rectangle"
+    "IINA|iina|核心|IINA"
+    "AlDente|aldente|核心|AlDente"
+    "Obsidian|obsidian|核心|Obsidian"
+    "VSCode|visual-studio-code|開發|Visual Studio Code"
+    "Sublime Text|sublime-text|開發|Sublime Text"
+    "Postman|postman|開發|Postman"
+    "DBeaver|dbeaver-community|開發|DBeaver"
+    "Stats|stats|系統|Stats"
+    "Keka|keka|系統|Keka"
+    "Spotify|spotify|娛樂|Spotify"
+    "Telegram|telegram|社群|Telegram"
+    "LINE|line|社群|LINE"
 )
 
 # 0. 環境預檢
@@ -43,10 +43,24 @@ done
 
 # 指令檢查函式
 is_cmd_installed() { command -v "$1" &> /dev/null; }
-is_cask_installed() { brew list --cask "$1" &> /dev/null; }
+
+# 增強版 Cask 檢查函式 (檢查 brew 紀錄與 /Applications 目錄)
+is_cask_installed() {
+    local cask_id=$1
+    local app_file=$2
+    
+    # 1. 檢查 Homebrew 紀錄
+    brew list --cask "$cask_id" &> /dev/null && return 0
+    
+    # 2. 檢查 /Applications 及其子目錄
+    [ -d "/Applications/${app_file}.app" ] && return 0
+    [ -d "$HOME/Applications/${app_file}.app" ] && return 0
+    
+    return 1
+}
 
 echo "============================================"
-echo "🔍 系統環境掃描中..."
+echo "🔍 系統環境深度掃描中..."
 echo "============================================"
 
 # 1. 基礎環境檢查
@@ -60,8 +74,8 @@ MISSING_LIST=()
 INSTALLED_LIST=()
 
 for app in "${APPS[@]}"; do
-    IFS="|" read -r name id category <<< "$app"
-    if is_cask_installed "$id"; then
+    IFS="|" read -r name id category app_file <<< "$app"
+    if is_cask_installed "$id" "$app_file"; then
         INSTALLED_LIST+=("$name ($category)")
     else
         MISSING_LIST+=("$app")
@@ -70,7 +84,10 @@ done
 
 # 3. 輸出掃描摘要
 echo "--- 掃描摘要 ---"
-[ ${#INSTALLED_LIST[@]} -gt 0 ] && echo "[✔] 已安裝項目: ${#INSTALLED_LIST[@]} 項"
+if [ ${#INSTALLED_LIST[@]} -gt 0 ]; then
+    echo "[✔] 偵測到已安裝項目:"
+    for item in "${INSTALLED_LIST[@]}"; do echo "    - $item"; done
+fi
 echo "[✘] 缺失項目: ${#MISSING_LIST[@]} 項"
 echo "----------------"
 
@@ -95,7 +112,7 @@ if [ ${#MISSING_LIST[@]} -gt 0 ]; then
     echo ""
     echo "--- 軟體安裝偏好設定 ---"
     for item in "${MISSING_LIST[@]}"; do
-        IFS="|" read -r name id category <<< "$item"
+        IFS="|" read -r name id category app_file <<< "$item"
         echo -n "安裝 [$category] $name? (y/n) "
         read answer
         [[ "$answer" =~ ^[Yy]$ ]] && TO_INSTALL_CASKS+=("$id")
@@ -157,5 +174,5 @@ echo ">>> 導入 iTerm2 配色方案..."
 open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 
 echo "============================================"
-echo "安裝作業完成。"
+echo "🎉 安裝作業完成。"
 echo "============================================"
