@@ -182,7 +182,7 @@
             
             <div class="glass-card p-2 rounded-2xl mb-8 flex items-center gap-4 group">
                 <div class="bg-cyber-gray px-6 py-4 rounded-xl font-mono text-sm md:text-base flex-1 text-left overflow-x-auto whitespace-nowrap text-cyber-cyan">
-                    sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && ./install.sh
+                    git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow && sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && chmod +x install.sh && ./install.sh
                 </div>
                 <button onclick="copyCommand()" class="pr-6 text-gray-400 hover:text-cyber-cyan transition-colors">
                     <i class="far fa-copy text-xl"></i>
@@ -202,7 +202,7 @@
 
     <script>
         function copyCommand() {
-            const cmd = 'sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && ./install.sh';
+            const cmd = 'git clone https://github.com/s813082/init-my-workflow.git ~/Documents/init-my-workflow && sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-workflow && chmod +x install.sh && ./install.sh';
             navigator.clipboard.writeText(cmd);
             const toast = document.getElementById('copy-toast');
             toast.style.opacity = '1';
