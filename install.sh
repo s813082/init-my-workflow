@@ -218,7 +218,12 @@ fi
 # [2] 安裝新軟體
 if [ ${#TO_INSTALL_CASKS[@]} -gt 0 ]; then
     for id in "${TO_INSTALL_CASKS[@]}"; do
-        echo ">>> 正在安裝 $id..."
+        # 智慧自癒：如果 Homebrew 覺得裝了但實體目錄沒看到，先清除殘留紀錄
+        if brew list --cask "$id" &> /dev/null; then
+            echo ">>> [同步] 偵測到 $id 註冊紀錄殘留，正在為您強制同步環境..."
+            brew uninstall --cask --force "$id"
+        fi
+        echo ">>> 正在全速安裝 $id..."
         brew install --cask "$id"
     done
 fi
