@@ -53,7 +53,7 @@ setup_obsidian_vault() {
         2)
             echo -n "👉 請輸入 GitHub 倉庫網址 (HTTPS/SSH): "
             read repo_url
-            # 姊姊幫你鎖定路徑在 Documents 裡了，笨蛋弟弟不用動腦！
+            # 預設將 Vault 存放在 Documents 目錄下
             repo_name=$(basename "$repo_url" .git)
             vault_path="$HOME/Documents/$repo_name"
 
@@ -245,7 +245,7 @@ ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 # Obsidian Vault 智慧連動
 if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
     if is_obsidian_configured; then
-        echo ">>> 偵測到您已經設定過 Obsidian Vault 了，姊姊就不吵你囉！✨"
+        echo ">>> 偵測到您已經設定過 Obsidian Vault。"
     else
         setup_obsidian_vault
     fi
