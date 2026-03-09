@@ -25,6 +25,31 @@ APPS=(
     "LINE|line|社群|LINE"
 )
 
+# [輔助函式] 更新 Obsidian 配置文件
+update_obsidian_config() {
+    local v_path="$1"
+    local config_file="$HOME/Library/Application Support/obsidian/obsidian.json"
+    local config_dir=$(dirname "$config_file")
+
+    mkdir -p "$config_dir"
+
+    # 取得當前時間戳 (毫秒)
+    local ts=$(date +%s%3N)
+    # 產生一個隨機 ID
+    local vid=$(LC_ALL=C tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
+
+    if [ ! -f "$config_file" ] || [ ! -s "$config_file" ]; then
+        # 如果檔案不存在或為空，建立一個基礎結構
+        echo "{\"vaults\":{\"$vid\":{\"path\":\"$v_path\",\"ts\":$ts,\"open\":true}}}" > "$config_file"
+    else
+        # 這裡原本最好是用 jq，但為了相容性我們用簡單的替換或追加
+        # 如果已經有內容，我們試著在 vaults 後面插入 (這是一個比較粗略的作法)
+        # 注意：這僅適用於基本的單個 vault 注入
+        sed -i '' "s/\"vaults\":{/\"vaults\":{\"$vid\":{\"path\":\"$v_path\",\"ts\":$ts,\"open\":true},/g" "$config_file"
+    fi
+    echo "✅ 已將 Vault 路徑寫入 Obsidian 配置文件"
+}
+
 # [6] Obsidian Vault 智慧引導 (新功能！💎)
 setup_obsidian_vault() {
     echo ""
@@ -46,6 +71,7 @@ setup_obsidian_vault() {
             eval vault_path=$vault_path 
             if [ -d "$vault_path" ]; then
                 echo "✅ 已確認路徑：$vault_path"
+                update_obsidian_config "$vault_path"
             else
                 echo "⚠️ 找不到該目錄，請待會手動在 Obsidian 中開啟它唷！"
             fi
@@ -53,7 +79,6 @@ setup_obsidian_vault() {
         2)
             echo -n "👉 請輸入 GitHub 倉庫網址 (HTTPS/SSH): "
             read repo_url
-            # 預設將 Vault 存放在 Documents 目錄下
             repo_name=$(basename "$repo_url" .git)
             vault_path="$HOME/Documents/$repo_name"
 
@@ -66,7 +91,6 @@ setup_obsidian_vault() {
 
             cd "$vault_path" || return
             
-            # Git 個人資訊預檢
             [ -z "$(git config user.name)" ] && { echo -n "👉 請輸入 Git 姓名: "; read git_name; git config user.name "$git_name"; }
             [ -z "$(git config user.email)" ] && { echo -n "👉 請輸入 Git Email: "; read git_email; git config user.email "$git_email"; }
 
@@ -74,7 +98,12 @@ setup_obsidian_vault() {
             date > .connection_test
             git add .connection_test
             git commit -m "chore: 🚀 initial connection test from init-my-workflow"
-            git push origin $(git branch --show-current) && echo "✅ 遠端連線測試成功！" || echo "❌ 連線失敗，請檢查權限。"
+            if git push origin $(git branch --show-current); then
+                echo "✅ 遠端連線測試成功！"
+                update_obsidian_config "$vault_path"
+            else
+                echo "❌ 連線失敗，請檢查權限。"
+            fi
             cd - > /dev/null
             ;;
         3)
@@ -95,7 +124,12 @@ setup_obsidian_vault() {
                 git add .
                 git commit -m "feat: 🚀 initial vault setup from init-my-workflow"
                 echo "🧪 正在嘗試第一次推送..."
-                git push -u origin $(git branch --show-current) && echo "✅ 遠端同步設定完成！" || echo "⚠️ 推送失敗。"
+                if git push -u origin $(git branch --show-current); then
+                    echo "✅ 遠端同步設定完成！"
+                    update_obsidian_config "$vault_path"
+                else
+                    echo "⚠️ 推送失敗。"
+                fi
             fi
             cd - > /dev/null
             ;;
@@ -109,7 +143,6 @@ is_obsidian_configured() {
     if [ ! -f "$config_file" ]; then
         return 1 # 沒檔案，代表沒設定過
     fi
-    # 檢查 JSON 裡面有沒有 "path": 這個關鍵字，有的話代表已經有 Vault 紀錄了
     if grep -q "\"path\":" "$config_file"; then
         return 0 # 已經設定過了
     fi
@@ -186,6 +219,7 @@ if ! is_cmd_installed "node"; then
 fi
 
 # 🚀 智慧檢查更新邏輯 (針對已安裝的環境)
+# 這裡原本有 logic 判斷是否需要更新，但為了確保每次都問，我們稍微調整
 if [ ${#TO_INSTALL_CASKS[@]} -eq 0 ] && [ "$INSTALL_NODE_ENV" = false ]; then
     echo ""
     echo "💡 偵測到您目前不需要安裝新軟體。"
@@ -218,7 +252,6 @@ fi
 # [2] 安裝新軟體
 if [ ${#TO_INSTALL_CASKS[@]} -gt 0 ]; then
     for id in "${TO_INSTALL_CASKS[@]}"; do
-        # 智慧自癒：如果 Homebrew 覺得裝了但實體目錄沒看到，先清除殘留紀錄
         if brew list --cask "$id" &> /dev/null; then
             echo ">>> [同步] 偵測到 $id 註冊紀錄殘留，正在為您強制同步環境..."
             brew uninstall --cask --force "$id"
@@ -237,15 +270,21 @@ fi
 
 # [4] 設定檔同步
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo ">>> 正在部署 Oh My Zsh 框架..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
-# (同步邏輯同前，略過中間重複的 git clone ...)
+
+echo ">>> 正在同步您的設定檔，注入靈魂中..."
 [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k" &> /dev/null
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" &> /dev/null
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions" &> /dev/null
 
 [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+
+# 導入 iTerm2 配色方案
+echo ">>> 導入華麗的 Tomorrow Night Eighties 配色..."
+open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 
 # Obsidian Vault 智慧連動
 if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
@@ -258,4 +297,9 @@ fi
 
 echo "============================================"
 echo "🎊 所有的設定都完美達成！"
+echo "--------------------------------------------"
+echo "🌟 記得完成最後的熱血設定 (手動步驟):"
+echo "1. iTerm2 > 設定 > Profiles > Text > Font: 選中 'MesloLGS NF'"
+echo "2. iTerm2 > 設定 > Profiles > Colors > Color Presets: 選中 'Tomorrow Night Eighties'"
+echo "3. 執行 'p10k configure' 打造您專屬的終端機外型！"
 echo "============================================"
