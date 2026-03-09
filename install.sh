@@ -268,23 +268,27 @@ if [ "$INSTALL_NODE_ENV" = true ]; then
     npm install -g @google/generative-ai @githubnext/github-copilot-cli
 fi
 
-# [4] 設定檔同步
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    echo ">>> 正在部署 Oh My Zsh 框架..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# [4] 設定檔同步 (僅在有 iTerm2 的情況下執行)
+if [[ " ${INSTALLED_LIST[@]} " =~ "iTerm2" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "iterm2" ]]; then
+    echo ">>> 偵測到 iTerm2，正在為您打造最強終端機環境..."
+    
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        echo ">>> 正在部署 Oh My Zsh 框架..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
+
+    echo ">>> 正在同步您的設定檔，注入靈魂中..."
+    [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k" &> /dev/null
+    [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" &> /dev/null
+    [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions" &> /dev/null
+
+    [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
+    ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+
+    # 導入 iTerm2 配色方案
+    echo ">>> 導入華麗的 Tomorrow Night Eighties 配色..."
+    open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 fi
-
-echo ">>> 正在同步您的設定檔，注入靈魂中..."
-[ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k" &> /dev/null
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" &> /dev/null
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions" &> /dev/null
-
-[ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
-ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-
-# 導入 iTerm2 配色方案
-echo ">>> 導入華麗的 Tomorrow Night Eighties 配色..."
-open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 
 # Obsidian Vault 智慧連動
 if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
