@@ -103,6 +103,19 @@ setup_obsidian_vault() {
     esac
 }
 
+# 檢查 Obsidian 是否已經設定過 Vault
+is_obsidian_configured() {
+    local config_file="$HOME/Library/Application Support/obsidian/obsidian.json"
+    if [ ! -f "$config_file" ]; then
+        return 1 # 沒檔案，代表沒設定過
+    fi
+    # 檢查 JSON 裡面有沒有 "path": 這個關鍵字，有的話代表已經有 Vault 紀錄了
+    if grep -q "\"path\":" "$config_file"; then
+        return 0 # 已經設定過了
+    fi
+    return 1 # 沒路徑資訊，代表還沒設定好
+}
+
 # 支援單獨執行 Obsidian 設定
 if [[ "$1" == "--obsidian" ]]; then
     setup_obsidian_vault
@@ -229,9 +242,13 @@ fi
 [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
-# Obsidian Vault 觸發
+# Obsidian Vault 智慧連動
 if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
-    setup_obsidian_vault
+    if is_obsidian_configured; then
+        echo ">>> 偵測到您已經設定過 Obsidian Vault 了，姊姊就不吵你囉！✨"
+    else
+        setup_obsidian_vault
+    fi
 fi
 
 echo "============================================"
