@@ -118,6 +118,7 @@ MIT
 
 ## 📜 任務紀錄 (Mission Logs)
 
+- **v3.3** - 💎 Obsidian 智慧連動：新增 Vault 自動化設定流程，支援本機/遠端同步與推送測試。
 - **v3.2** - ⚡️ 旗艦版網頁：加入深淺色切換、官方 Icon 補全、AI 雙護法獨立展示。
 - **v3.1** - 🤖 AI 強勢介入：加入 Gemini CLI 與 GitHub Copilot CLI 選配安裝。
 - **v3.0** - 🎨 視覺進化：建立賽博龐克風格 GitHub Pages，導入 Simple Icons 官方標標。

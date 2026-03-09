@@ -185,6 +185,121 @@ ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 echo ">>> 導入華麗的 Tomorrow Night Eighties 配色..."
 open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 
+# [6] Obsidian Vault 智慧引導 (新功能！💎)
+setup_obsidian_vault() {
+    echo ""
+    echo "============================================"
+    echo "💎 Obsidian Vault 智慧設定引導"
+    echo "============================================"
+    echo "偵測到您已擁抱 Obsidian，讓我們幫您把筆記本 (Vault) 設定好吧！"
+    echo "請選擇您的 Vault 狀態："
+    echo "1) 已經存在本機 (Local)"
+    echo "2) 存在 GitHub 遠端倉庫 (Remote Repo)"
+    echo "3) 還沒有 Vault，我想新創一個 (New)"
+    echo -n "您的選擇是 (1/2/3): "
+    read vault_choice
+
+    case $vault_choice in
+        1)
+            echo -n "👉 請輸入您本機 Vault 的完整路徑: "
+            read vault_path
+            eval vault_path=$vault_path # 支援 ~ 路徑展開
+            if [ -d "$vault_path" ]; then
+                echo "✅ 已確認路徑：$vault_path"
+            else
+                echo "⚠️ 找不到該目錄，請待會手動在 Obsidian 中開啟它唷！"
+            fi
+            ;;
+        2)
+            echo -n "👉 請輸入 GitHub 倉庫網址 (HTTPS/SSH): "
+            read repo_url
+            default_path="$HOME/Documents/ObsidianVault"
+            echo -n "👉 想要存放在哪裡？(預設: $default_path): "
+            read vault_path
+            vault_path=${vault_path:-$default_path}
+            eval vault_path=$vault_path
+
+            if [ -d "$vault_path" ]; then
+                echo "⚠️ 目錄已存在，跳過 Clone 步驟。"
+            else
+                echo ">>> 正在從遠端召喚您的筆記..."
+                git clone "$repo_url" "$vault_path"
+            fi
+
+            cd "$vault_path" || return
+            
+            # Git 個人資訊預檢
+            if [ -z "$(git config user.name)" ]; then
+                echo -n "👉 偵測到未設定 Git 姓名，請輸入: "
+                read git_name
+                git config user.name "$git_name"
+            fi
+            if [ -z "$(git config user.email)" ]; then
+                echo -n "👉 請輸入 Git Email: "
+                read git_email
+                git config user.email "$git_email"
+            fi
+
+            # 連線測試
+            echo "🧪 正在進行連線測試 (Test Push)..."
+            date > .connection_test
+            git add .connection_test
+            git commit -m "chore: 🚀 initial connection test from init-my-workflow"
+            if git push origin $(git branch --show-current); then
+                echo "✅ 遠端連線測試成功！您的筆記隨時待命！"
+            else
+                echo "❌ 連線失敗，請檢查 GitHub 權限或 SSH Key 設定。"
+            fi
+            cd - > /dev/null
+            ;;
+        3)
+            default_name="$(whoami)_vault"
+            echo -n "👉 想要幫您的 Vault 取什麼名字？(預設: $default_name): "
+            read vault_name
+            vault_name=${vault_name:-$default_name}
+            vault_path="$HOME/Documents/$vault_name"
+
+            if [ -d "$vault_path" ]; then
+                echo "⚠️ 目錄 $vault_path 已存在，改為進入目錄..."
+            else
+                mkdir -p "$vault_path"
+            fi
+            
+            cd "$vault_path" || return
+            if [ ! -d ".git" ]; then
+                git init
+                echo "# 📓 $vault_name" > README.md
+            fi
+            
+            echo -n "👉 想要連結到哪個 GitHub 遠端倉庫網址？(若暫不連結請留空): "
+            read repo_url
+            if [ -n "$repo_url" ]; then
+                if ! git remote | grep -q "origin"; then
+                    git remote add origin "$repo_url"
+                fi
+                git add .
+                git commit -m "feat: 🚀 initial vault setup from init-my-workflow"
+                echo "🧪 正在嘗試第一次推送..."
+                if git push -u origin $(git branch --show-current); then
+                    echo "✅ 遠端同步設定完成！"
+                else
+                    echo "⚠️ 推送失敗，請手動確認遠端倉庫是否已建立且為空。"
+                fi
+            fi
+            cd - > /dev/null
+            ;;
+        *)
+            echo "⏩ 跳過 Vault 設定。"
+            ;;
+    esac
+}
+
+# 判斷是否需要執行 Obsidian 設定
+# 檢查已安裝清單或即將安裝清單
+if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
+    setup_obsidian_vault
+fi
+
 echo "============================================"
 echo "🎊 萬歲！所有的安裝與設定都完美達成！"
 echo "--------------------------------------------"
