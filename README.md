@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/Gemini_Generated_Image_ao0fcpao0fcpao0f.png" alt="init-my-workflow hero banner" width="100%">
+</p>
+
 # 🚀 init-my-workflow
 
 <p align="center">
