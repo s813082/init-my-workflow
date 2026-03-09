@@ -1,5 +1,13 @@
 # 🚀 init-my-workflow
 
+<p align="center">
+  <a href="https://github.com/s813082/init-my-workflow/releases"><img src="https://img.shields.io/github/v/release/s813082/init-my-workflow?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
+  <a href="https://github.com/s813082/init-my-workflow/stargazers"><img src="https://img.shields.io/github/stars/s813082/init-my-workflow?style=for-the-badge" alt="GitHub stars"></a>
+  <a href="https://www.apple.com/macos"><img src="https://img.shields.io/badge/Platform-macOS-lightgrey.svg?style=for-the-badge&logo=apple" alt="macOS"></a>
+  <a href="https://deepwiki.com/s813082/init-my-workflow"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+
 [English](#english) | [中文](#中文)
 
 ---
