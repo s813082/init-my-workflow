@@ -54,30 +54,19 @@ update_obsidian_config() {
 setup_obsidian_vault() {
     echo ""
     echo "============================================"
-    echo "💎 Obsidian Vault 智慧設定引導"
+    echo "💎 Obsidian Vault 智慧引導設定"
     echo "============================================"
     echo "讓我們幫您把筆記本 (Vault) 設定好吧！"
     echo "請選擇您的 Vault 狀態："
-    echo "1) 已經存在本機 (Local)"
-    echo "2) 存在 GitHub 遠端倉庫 (Remote Repo)"
-    echo "3) 還沒有 Vault，我想新創一個 (New)"
+    echo "1) 我在 GitHub 上有現有的筆記倉庫 (Remote Repo)"
+    echo "2) 我想在本地建立一個全新的筆記資料夾 (New Local)"
+    echo "3) 暫不設定，稍後再自行處理 (Skip)"
     echo -n "您的選擇是 (1/2/3): "
     read vault_choice
 
     case $vault_choice in
         1)
-            echo -n "👉 請輸入您本機 Vault 的完整路徑: "
-            read vault_path
-            eval vault_path=$vault_path 
-            if [ -d "$vault_path" ]; then
-                echo "✅ 已確認路徑：$vault_path"
-                update_obsidian_config "$vault_path"
-            else
-                echo "⚠️ 找不到該目錄，請待會手動在 Obsidian 中開啟它唷！"
-            fi
-            ;;
-        2)
-            echo -n "👉 請輸入 GitHub 倉庫網址 (HTTPS/SSH): "
+            echo -n "👉 請輸入您的 GitHub 倉庫網址 (HTTPS/SSH): "
             read repo_url
             repo_name=$(basename "$repo_url" .git)
             vault_path="$HOME/Documents/$repo_name"
@@ -85,55 +74,43 @@ setup_obsidian_vault() {
             if [ -d "$vault_path" ]; then
                 echo "⚠️ 目錄 $vault_path 已存在，跳過 Clone 步驟。"
             else
-                echo ">>> 正在從遠端召喚您的筆記到 $vault_path..."
+                echo ">>> 正在從遠端拉取您的筆記到 $vault_path..."
                 git clone "$repo_url" "$vault_path"
             fi
 
-            cd "$vault_path" || return
-            
-            [ -z "$(git config user.name)" ] && { echo -n "👉 請輸入 Git 姓名: "; read git_name; git config user.name "$git_name"; }
-            [ -z "$(git config user.email)" ] && { echo -n "👉 請輸入 Git Email: "; read git_email; git config user.email "$git_email"; }
-
-            echo "🧪 正在進行連線測試 (Test Push)..."
-            date > .connection_test
-            git add .connection_test
-            git commit -m "chore: 🚀 initial connection test from init-my-workflow"
-            if git push origin $(git branch --show-current); then
-                echo "✅ 遠端連線測試成功！"
+            if [ -d "$vault_path" ]; then
                 update_obsidian_config "$vault_path"
-            else
-                echo "❌ 連線失敗，請檢查權限。"
+                echo "✅ 設定完成！稍後打開 Obsidian 時，它將會直接識別此目錄。"
             fi
-            cd - > /dev/null
             ;;
-        3)
+        2)
             default_name="$(whoami)_vault"
-            echo -n "👉 想要幫您的 Vault 取什麼名字？(預設: $default_name): "
+            echo -n "👉 想要建立的資料夾名稱？(預設: $default_name): "
             read vault_name
             vault_name=${vault_name:-$default_name}
             vault_path="$HOME/Documents/$vault_name"
 
-            mkdir -p "$vault_path"
-            cd "$vault_path" || return
-            [ ! -d ".git" ] && { git init; echo "# 📓 $vault_name" > README.md; }
-            
-            echo -n "👉 想要連結到哪個 GitHub 遠端倉庫網址？(若暫不連結請留空): "
-            read repo_url
-            if [ -n "$repo_url" ]; then
-                ! git remote | grep -q "origin" && git remote add origin "$repo_url"
-                git add .
-                git commit -m "feat: 🚀 initial vault setup from init-my-workflow"
-                echo "🧪 正在嘗試第一次推送..."
-                if git push -u origin $(git branch --show-current); then
-                    echo "✅ 遠端同步設定完成！"
-                    update_obsidian_config "$vault_path"
-                else
-                    echo "⚠️ 推送失敗。"
-                fi
+            if [ -d "$vault_path" ]; then
+                echo "⚠️ 資料夾 $vault_path 已存在。"
+            else
+                mkdir -p "$vault_path"
+                echo "✅ 已成功建立資料夾：$vault_path"
             fi
-            cd - > /dev/null
+            
+            update_obsidian_config "$vault_path"
+            echo ""
+            echo "💡 提示：您之後可以在 Obsidian 中開啟此資料夾。若未來想備份至 GitHub："
+            echo "1. 進入該目錄執行 'git init'"
+            echo "2. 連結遠端倉庫並推送內容即可。"
             ;;
-        *) echo "⏩ 跳過 Vault 設定。" ;;
+        3)
+            echo "⏩ 已跳過自動化 Vault 設定。"
+            echo "💡 小提醒：第一次打開 Obsidian 時，您可以選擇 'Create new vault' 建立新筆記，"
+            echo "   或者 'Open folder as vault' 開啟現有資料夾。之後再自行上傳至 GitHub 即可。"
+            ;;
+        *)
+            echo "⏩ 未選擇有效選項，跳過設定。"
+            ;;
     esac
 }
 
