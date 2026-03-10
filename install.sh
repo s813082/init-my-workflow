@@ -26,109 +26,14 @@ APPS=(
 )
 
 # [輔助函式] 更新 Obsidian 配置文件
-update_obsidian_config() {
-    local v_path="$1"
-    local config_file="$HOME/Library/Application Support/obsidian/obsidian.json"
-    local config_dir=$(dirname "$config_file")
-
-    mkdir -p "$config_dir"
-
-    # 取得當前時間戳 (毫秒)
-    local ts=$(date +%s%3N)
-    # 產生一個隨機 ID
-    local vid=$(LC_ALL=C tr -dc 'a-f0-9' < /dev/urandom | head -c 16)
-
-    if [ ! -f "$config_file" ] || [ ! -s "$config_file" ]; then
-        # 如果檔案不存在或為空，建立一個基礎結構
-        echo "{\"vaults\":{\"$vid\":{\"path\":\"$v_path\",\"ts\":$ts,\"open\":true}}}" > "$config_file"
-    else
-        # 這裡原本最好是用 jq，但為了相容性我們用簡單的替換或追加
-        # 如果已經有內容，我們試著在 vaults 後面插入 (這是一個比較粗略的作法)
-        # 注意：這僅適用於基本的單個 vault 注入
-        sed -i '' "s/\"vaults\":{/\"vaults\":{\"$vid\":{\"path\":\"$v_path\",\"ts\":$ts,\"open\":true},/g" "$config_file"
-    fi
-    echo "✅ 已將 Vault 路徑寫入 Obsidian 配置文件"
-}
-
-# [6] Obsidian Vault 智慧引導 (新功能！💎)
-setup_obsidian_vault() {
-    echo ""
-    echo "============================================"
-    echo "💎 Obsidian Vault 智慧引導設定"
-    echo "============================================"
-    echo "讓我們幫您把筆記本 (Vault) 設定好吧！"
-    echo "請選擇您的 Vault 狀態："
-    echo "1) 我在 GitHub 上有現有的筆記倉庫 (Remote Repo)"
-    echo "2) 我想在本地建立一個全新的筆記資料夾 (New Local)"
-    echo "3) 暫不設定，稍後再自行處理 (Skip)"
-    echo -n "您的選擇是 (1/2/3): "
-    read vault_choice
-
-    case $vault_choice in
-        1)
-            echo -n "👉 請輸入您的 GitHub 倉庫網址 (HTTPS/SSH): "
-            read repo_url
-            repo_name=$(basename "$repo_url" .git)
-            vault_path="$HOME/Documents/$repo_name"
-
-            if [ -d "$vault_path" ]; then
-                echo "⚠️ 目錄 $vault_path 已存在，跳過 Clone 步驟。"
-            else
-                echo ">>> 正在從遠端拉取您的筆記到 $vault_path..."
-                git clone "$repo_url" "$vault_path"
-            fi
-
-            if [ -d "$vault_path" ]; then
-                update_obsidian_config "$vault_path"
-                echo "✅ 設定完成！稍後打開 Obsidian 時，它將會直接識別此目錄。"
-            fi
-            ;;
-        2)
-            default_name="$(whoami)_vault"
-            echo -n "👉 想要建立的資料夾名稱？(預設: $default_name): "
-            read vault_name
-            vault_name=${vault_name:-$default_name}
-            vault_path="$HOME/Documents/$vault_name"
-
-            if [ -d "$vault_path" ]; then
-                echo "⚠️ 資料夾 $vault_path 已存在。"
-            else
-                mkdir -p "$vault_path"
-                echo "✅ 已成功建立資料夾：$vault_path"
-            fi
-            
-            update_obsidian_config "$vault_path"
-            echo ""
-            echo "💡 提示：您之後可以在 Obsidian 中開啟此資料夾。若未來想備份至 GitHub："
-            echo "1. 進入該目錄執行 'git init'"
-            echo "2. 連結遠端倉庫並推送內容即可。"
-            ;;
-        3)
-            echo "⏩ 已跳過自動化 Vault 設定。"
-            echo "💡 小提醒：第一次打開 Obsidian 時，您可以選擇 'Create new vault' 建立新筆記，"
-            echo "   或者 'Open folder as vault' 開啟現有資料夾。之後再自行上傳至 GitHub 即可。"
-            ;;
-        *)
-            echo "⏩ 未選擇有效選項，跳過設定。"
-            ;;
-    esac
-}
+# (已遷移至 setup-obsidian.sh)
 
 # 檢查 Obsidian 是否已經設定過 Vault
-is_obsidian_configured() {
-    local config_file="$HOME/Library/Application Support/obsidian/obsidian.json"
-    if [ ! -f "$config_file" ]; then
-        return 1 # 沒檔案，代表沒設定過
-    fi
-    if grep -q "\"path\":" "$config_file"; then
-        return 0 # 已經設定過了
-    fi
-    return 1 # 沒路徑資訊，代表還沒設定好
-}
+# (已遷移至 setup-obsidian.sh)
 
 # 支援單獨執行 Obsidian 設定
 if [[ "$1" == "--obsidian" ]]; then
-    setup_obsidian_vault
+    bash "$DOTFILES_DIR/setup-obsidian.sh"
     exit 0
 fi
 
@@ -173,6 +78,7 @@ fi
 
 # 4. 批次詢問階段
 TO_INSTALL_CASKS=()
+WANT_OBSIDIAN=false
 INSTALL_NODE_ENV=false
 DO_BREW_UPDATE=false
 
@@ -184,7 +90,13 @@ if [ ${#MISSING_LIST[@]} -gt 0 ]; then
         IFS="|" read -r name id category app_file <<< "$item"
         echo -n "想在您的 Mac 上迎接 [$category] $name 嗎？ (y/n) "
         read answer
-        [[ "$answer" =~ ^[Yy]$ ]] && TO_INSTALL_CASKS+=("$id")
+        if [[ "$answer" =~ ^[Yy]$ ]]; then
+            if [[ "$id" == "obsidian" ]]; then
+                WANT_OBSIDIAN=true
+            else
+                TO_INSTALL_CASKS+=("$id")
+            fi
+        fi
     done
 fi
 
@@ -267,12 +179,13 @@ if [[ " ${INSTALLED_LIST[@]} " =~ "iTerm2" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =
     open "$DOTFILES_DIR/themes/Tomorrow-Night-Eighties.itermcolors"
 fi
 
-# Obsidian Vault 智慧連動
-if [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]] || [[ " ${TO_INSTALL_CASKS[@]} " =~ "obsidian" ]]; then
-    if is_obsidian_configured; then
+# Obsidian 軟體安裝與 Vault 智慧連動
+# (所有邏輯都封裝在 setup-obsidian.sh 裡面了)
+if [ "$WANT_OBSIDIAN" = true ] || [[ " ${INSTALLED_LIST[@]} " =~ "Obsidian" ]]; then
+    if bash "$DOTFILES_DIR/setup-obsidian.sh" --check && [ "$WANT_OBSIDIAN" != true ]; then
         echo ">>> 偵測到您已經設定過 Obsidian Vault。"
     else
-        setup_obsidian_vault
+        bash "$DOTFILES_DIR/setup-obsidian.sh"
     fi
 fi
 
