@@ -15,6 +15,9 @@ cask "rectangle"
 cask "iina"
 cask "aldente"
 cask "obsidian"
+cask "bitwarden"
+cask "tailscale"
+cask "royal-tsx"
 
 # Typography
 cask "font-meslo-lg-nerd-font"
