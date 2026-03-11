@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二大腦連動機制 | init-my-workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 950: '#020617' },
+                        indigo: { 600: '#4f46e5', 400: '#818cf8' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-indigo-500/30">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="w-10 h-10 btn-primary rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12">
+                    <i class="fas fa-bolt text-lg"></i>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight dark:text-white light:text-slate-900">init-my-workflow</span>
+            </div>
+            <div class="flex items-center gap-8">
+                <div class="hidden md:flex gap-10 text-sm font-medium">
+                    <a href="index.html" class="nav-link">核心安裝</a>
+                    <a href="obsidian.html" class="nav-link">第二大腦</a>
+                    <a href="software.html" class="nav-link">軟體百科</a>
+                    <a href="spec.html" class="nav-link">技術規格</a>
+                </div>
+                <div class="flex items-center gap-4 pl-6 border-l border-slate-200 dark:border-slate-800">
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <a href="https://github.com/s813082/init-my-workflow" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 text-xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-40 pb-32 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-24">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold mb-6 uppercase tracking-widest">
+                <i class="fas fa-brain"></i> Obsidian + GitHub Automation
+            </div>
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-8 tracking-tight dark:text-white light:text-slate-900 leading-tight">
+                打造最強 <span class="gradient-text">第二大腦</span> 連動機制
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg leading-relaxed dark:text-slate-400 light:text-slate-600 font-medium">
+                這不僅是一個筆記軟體的安裝，而是一套深度的知識流自動化方案。我們將 Obsidian 的本地優勢與 GitHub 的雲端同步完美結合。
+            </p>
+        </div>
+
+        <!-- Why Section -->
+        <div class="grid md:grid-cols-3 gap-8 mb-32">
+            <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-6 text-xl">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">智慧同步</h3>
+                <p class="text-sm dark:text-slate-400 leading-relaxed font-medium">透過 GitHub CLI (gh) 實現無縫認證，無論新舊機都能一鍵拉取完整筆記庫。</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6 text-xl">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">資料防禦</h3>
+                <p class="text-sm dark:text-slate-400 leading-relaxed font-medium">內建路徑偵測機制，防止覆蓋現有筆記，確保您的寶貴知識資產絕對安全。</p>
+            </div>
+            <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6 text-xl">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">開箱即用</h3>
+                <p class="text-sm dark:text-slate-400 leading-relaxed font-medium">自動修改 Obsidian 系統設定檔，完成後直接開啟即可看到所有 Vault。</p>
+            </div>
+        </div>
+
+        <!-- Techniques Section -->
+        <div class="mb-32">
+            <h2 class="text-3xl font-display font-bold mb-12 dark:text-white text-center">核心技術亮點</h2>
+            <div class="space-y-6">
+                <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/3 text-indigo-500 font-mono text-xs font-bold uppercase tracking-widest">Technique 01</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-3 dark:text-white">Python 結構化 JSON 處理</h4>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                            我們捨棄了脆弱的字串替換，改用內嵌 Python 指令來解析與重建 `obsidian.json`。這能精準處理 JSON 樹狀結構，支援「追加 (Append)」與「覆蓋 (Overwrite)」兩種模式，確保設定檔永遠不遺失。
+                        </p>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/3 text-indigo-500 font-mono text-xs font-bold uppercase tracking-widest">Technique 02</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-3 dark:text-white">GitHub CLI (gh) 深度整合</h4>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                            利用 `gh repo clone` 取代傳統的 git 指令，腳本能自動處理私有倉庫的權限與認證，大幅降低使用者的操作門檻。
+                        </p>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/3 text-indigo-500 font-mono text-xs font-bold uppercase tracking-widest">Technique 03</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold mb-3 dark:text-white">冪等性設計 (Idempotency)</h4>
+                        <p class="text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                            腳本執行前會檢查 Homebrew 目錄、Git 遠端關聯以及檔案系統路徑。不論重複執行幾次，腳本都能正確識別目前狀態，避免產生冗餘配置。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage Section -->
+        <section class="bg-indigo-600 rounded-[40px] p-12 text-white overflow-hidden relative">
+            <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+                <i class="fas fa-brain text-[300px] -rotate-12 translate-x-20 translate-y-20"></i>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-display font-bold mb-8">如何使用？</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <div class="space-y-8">
+                            <div class="flex gap-6">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0 font-bold">1</div>
+                                <div>
+                                    <h4 class="font-bold mb-2">執行部署腳本</h4>
+                                    <p class="text-indigo-100 text-sm">在終端機輸入 `./setup-obsidian.sh` 啟動互動式嚮導。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0 font-bold">2</div>
+                                <div>
+                                    <h4 class="font-bold mb-2">認證與 Clone</h4>
+                                    <p class="text-indigo-100 text-sm">選擇選項 1 並輸入您的倉庫名稱，其餘的自動化邏輯會幫您搞定。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0 font-bold">3</div>
+                                <div>
+                                    <h4 class="font-bold mb-2">開啟即享受</h4>
+                                    <p class="text-indigo-100 text-sm">直接打開 Obsidian，您的第二大腦已經在那裡等您了。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <div class="glass bg-white/10 p-6 rounded-2xl border border-white/20">
+                            <p class="text-sm italic opacity-90 leading-relaxed">
+                                "這套機制解決了我在換機時最頭痛的筆記同步問題。現在我只需要幾秒鐘，就能在任何 macOS 裝置上取回我的所有知識。"
+                            </p>
+                            <div class="mt-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/20"></div>
+                                <span class="text-xs font-bold uppercase tracking-widest">Developer Barry Tsai</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 border-t border-slate-200 dark:border-slate-900 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-slate-400 text-sm">© 2026 Barry Tsai. 打造極簡技術生活。</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
