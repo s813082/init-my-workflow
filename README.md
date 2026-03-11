@@ -13,7 +13,7 @@
 
 ---
 
-## 🌟 English | Ready for Battle!
+## 🌟 Ready for Battle!
 
 An automated macOS initialization suite designed to get you up and running in record time. Say goodbye to manual setups! 🚀
 
@@ -23,6 +23,9 @@ An automated macOS initialization suite designed to get you up and running in re
 - **Self-Healing Logic**: Automatically cleans up broken Homebrew links before re-installing.
 - **Permission Guard**: Validates system directory access before it even starts.
 - **Total Peace of Mind**: Zero risk of overwriting your hard work—backups are created automatically.
+
+### 📖 Documentation
+- [💎 Obsidian & GitHub Sync Workflow](OBSIDIAN_SETUP.md)
 
 <details>
 <summary>📊 <b>Show Workflow Logic (Mermaid)</b></summary>
@@ -81,7 +84,7 @@ sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-work
 
 <br>
 
-## 🌟 中文 | 熱血工作流啟動！
+## 🌟 熱血工作流啟動！
 
 這是一套專為 macOS 設計的自動化初始化工具包，旨在讓您換新機時不再手忙腳亂，一鍵建立最強開發環境！🚀
 
@@ -91,6 +94,9 @@ sudo chown -R $(whoami) /usr/local/share/man/man8 && cd ~/Documents/init-my-work
 - **註冊表自癒同步**: 偵測到「軟體已刪但紀錄殘留」時，會自動清除舊紀錄並重新乾淨安裝。
 - **權限自動防禦**: 執行前自動檢查並修復常見的 Homebrew 寫入權限問題。
 - **無痛設定遷移**: 自動備份現有的 `.zshrc`，讓您的舊設定永遠有一份保險。
+
+### 📖 操作手冊 (Guides)
+- [💎 Obsidian & GitHub 智慧連動手冊](OBSIDIAN_SETUP.md)
 
 <details>
 <summary>📊 <b>顯示工作流邏輯圖 (Mermaid)</b></summary>

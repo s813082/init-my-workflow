@@ -4,6 +4,7 @@
 
 # Core Development Tools
 brew "git"
+brew "gh"
 brew "zsh"
 brew "curl"
 brew "node"

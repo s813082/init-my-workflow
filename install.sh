@@ -153,10 +153,10 @@ if [ ${#TO_INSTALL_CASKS[@]} -gt 0 ]; then
     done
 fi
 
-# [3] 部署開發環境 (Node.js)
+# [3] 部署開發環境 (Node.js & GitHub CLI)
 if [ "$INSTALL_NODE_ENV" = true ]; then
-    echo ">>> 正在部署 Node.js & AI CLI..."
-    brew install node
+    echo ">>> 正在部署 Node.js, GitHub CLI & AI CLI..."
+    brew install node gh
     npm install -g @google/generative-ai @githubnext/github-copilot-cli
 fi
 
